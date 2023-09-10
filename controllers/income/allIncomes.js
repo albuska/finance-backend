@@ -1,3 +1,5 @@
+const {ctrlWrapper} = require("../../helpers"); 
+
 const allIncomes = async (req, res) => {
   
 };

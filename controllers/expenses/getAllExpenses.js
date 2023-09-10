@@ -1,3 +1,5 @@
+const {ctrlWrapper} = require("../../helpers"); 
+
 const getAllExpenses = async (req, res) => {
   
 };

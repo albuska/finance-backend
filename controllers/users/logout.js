@@ -1,3 +1,5 @@
+const {ctrlWrapper} = require("../../helpers"); 
+
 const logout = async (req, res) => {
   
 };

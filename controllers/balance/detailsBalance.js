@@ -1,3 +1,5 @@
+const {ctrlWrapper} = require("../../helpers"); 
+
 const detailsBalance = async (req, res) => {
   
 };
