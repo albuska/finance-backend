@@ -1,4 +1,4 @@
-create TABLE person(
+create TABLE users(
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -6,7 +6,7 @@ create TABLE person(
     balance NUMERIC(10, 2)
 );
 
-create TABLE transaction(
+create TABLE transactions(
     id SERIAL PRIMARY KEY,
     date DATE NOT NULL,
     description VARCHAR(255) NOT NULL,
