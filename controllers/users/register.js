@@ -5,7 +5,7 @@ const { createHashPassword, getToken } = require("../../units");
 
 const register = async (req, res) => {
 
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
   const { rowCount: user } = await db.query(`
   SELECT
@@ -15,24 +15,27 @@ const register = async (req, res) => {
   );
 
   if (user > 0) throw httpError(409, `Email ${email} is already in use`);
+
+  const id = uuidv4()
   
   const hashPassword = await createHashPassword(password);
 
-  const verificationToken = await getToken(uuidv4()); 
+  const verificationToken = await getToken(id); 
 
   const { rows: newUser } = await db.query(`
-  INSERT INTO users (email, password, token) 
-  values ($1, $2, $3) 
-  RETURNING email, password, token, balance`,
-    [email, hashPassword, verificationToken]
+  INSERT INTO users (id, name, email, password, token) 
+  values ($1, $2, $3, $4, $5) 
+  RETURNING id, name, email, password, token, balance`,
+    [id, name, email, hashPassword, verificationToken]
   );
 
-  const {email: dbEmail, token, balance} = newUser[0]
+  const {name: dbName, email: dbEmail, token, balance} = newUser[0]
 
   //add user's name to DB, return name in res, add bool isNewUser(maybe we'll use balance as null, if null not 0)
 
   res.status(201).json({
     user: {
+      name: dbName,
       email: dbEmail,
       balance
     },

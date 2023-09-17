@@ -9,7 +9,7 @@ const login = async (req, res) => {
   const { email, password } = req.body
 
   const { rows: user } = await db.query(`
-    SELECT email, password 
+    SELECT id, email, password 
     FROM users 
     WHERE email=$1`,
     [email]
@@ -17,28 +17,33 @@ const login = async (req, res) => {
 
   if (user.length === 0) throw httpError(401, 'Email or password is wrong');
 
-  const comparedPassword = await bcrypt.compare(password, user[0].password);
+  const {id, password: dbPassword} = user[0]
+
+  const comparedPassword = await bcrypt.compare(password, dbPassword);
 
   if (!comparedPassword) throw httpError(401, 'Email or password is wrong');
 
-  const token = await getToken(uuidv4())
+  const token = await getToken(id)
 
   const { rows: updUser } = await db.query(`
   UPDATE users 
   SET token=$1
   WHERE email=$2
-  RETURNING email, token, balance`,
+  RETURNING name, email, token, balance`,
     [token, email]);
 
-  const { email: dbEmail, token: dbToken, balance } = updUser[0];
+  const { name, email: dbEmail, token: dbToken, balance } = updUser[0];
 
   res.status(200).json({
     user: {
+      name,
       email: dbEmail,
       balance
     },
     token: dbToken
   })
+  
+
 };
 
 module.exports = {
