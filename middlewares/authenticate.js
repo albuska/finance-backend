@@ -1,9 +1,6 @@
 const { httpError } = require("../helpers");
 const db = require("../db")
 const jwt = require("jsonwebtoken");
-// const {
-//   UserModel: { User },
-// } = require("../models");
 
 const { SECRET_KEY_TOKEN } = process.env;
 

@@ -1,20 +1,11 @@
 const { v4: uuidv4 } = require("uuid");
 const db = require("../../db");
-const { httpError, ctrlWrapper } = require("../../helpers");
-const { createHashPassword, getToken } = require("../../units");
+const { ctrlWrapper } = require("../../helpers");
+const { createHashPassword, getToken } = require("../../utils");
 
 const register = async (req, res) => {
 
   const { name, email, password } = req.body;
-
-  const { rowCount: user } = await db.query(`
-  SELECT
-  FROM users
-  WHERE email=$1`,
-    [email]
-  );
-
-  if (user > 0) throw httpError(409, `Email ${email} is already in use`);
 
   const id = uuidv4()
   
@@ -29,9 +20,7 @@ const register = async (req, res) => {
     [id, name, email, hashPassword, verificationToken]
   );
 
-  const {name: dbName, email: dbEmail, token, balance} = newUser[0]
-
-  //add user's name to DB, return name in res, add bool isNewUser(maybe we'll use balance as null, if null not 0)
+  const { name: dbName, email: dbEmail, token, balance } = newUser[0];
 
   res.status(201).json({
     user: {
