@@ -1,34 +1,30 @@
 const { httpError } = require("../helpers");
 const db = require("../db")
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 // const {
 //   UserModel: { User },
 // } = require("../models");
 
-// const { SECRET_KEY_TOKEN } = process.env;
+const { SECRET_KEY_TOKEN } = process.env;
 
 const authenticate = async (req, res, next) => {
     
     const { authorization = "" } = req.headers;
 
     const [bearer, token] = authorization.split(" ");
+
     if (bearer !== "Bearer") {
         next(httpError(401, "Not authorized"));
     }
 
-    // try {
-    //     const verifiedToken = await jwt.verify(token, SECRET_KEY_TOKEN);
-    //     console.log(verifiedToken, 'verifiedToken');
-    //     // const user = await User.findById(id);
-
-    // } catch {
-    //     next(httpError(401, "Not authorized"));
-    // }
+    try {
+        const { id, exp } = await jwt.verify(token, SECRET_KEY_TOKEN);
+        if (exp*1000 < Date.now()) next(httpError(401, "Not authorized"));
 
         const { rows } = await db.query(`
-            SELECT id, email, token, balance
+            SELECT id, name, email, token, balance
             FROM users
-            WHERE token=$1`, [token]
+            WHERE id=$1`, [id]
         )
         const user = rows[0]
     
@@ -39,6 +35,13 @@ const authenticate = async (req, res, next) => {
         req.user = user;
 
         next();
+
+    } catch(e) {
+        next(httpError(401, "Not authorized"));
+
+    }
+
+
     
 };
 
