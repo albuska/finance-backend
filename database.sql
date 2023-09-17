@@ -1,5 +1,6 @@
 create TABLE users(
     id SERIAL PRIMARY KEY,
+    user_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     token VARCHAR(255),
@@ -13,7 +14,7 @@ create TABLE transactions(
     category VARCHAR(255),
     sum NUMERIC(10, 2) NOT NULL,
     type VARCHAR(10) CHECK (type IN ('income', 'expense')),
-    person_id INTEGER,
-    FOREIGN KEY (person_id) REFERENCES person (id)
+    users_id INTEGER,
+    FOREIGN KEY (users_id) REFERENCES users (id)
 );
 
