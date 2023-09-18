@@ -12,25 +12,8 @@ const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
-const { FRONT_PROD, FRONT_DEV } = process.env;
-
 app.use(logger(formatsLogger));
-app.use(cors({
-  origin: [FRONT_PROD, 'http://localhost:3000'],
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  exposedHeaders: ['Access-Control-Allow-Origin',
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token',
-    'X-Requested-With',
-    'Accept',
-    'Accept-Version',
-    'Content-Length',
-    'Content-MD5',
-    'Content-Type',
-    'Date',
-    'X-Api-Version',
-    'Authorization']
-}));
+app.use(cors({origin: "*",}));
 
 app.use(express.json());
 
