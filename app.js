@@ -12,8 +12,10 @@ const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
+const { FRONT_PROD, FRONT_DEV } = process.env;
+
 app.use(logger(formatsLogger));
-app.use(cors({origin: "*",}));
+app.use(cors({origin: [FRONT_PROD, FRONT_DEV], methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']}));
 
 app.use(express.json());
 
