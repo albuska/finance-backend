@@ -16,7 +16,7 @@ const { FRONT_PROD, FRONT_DEV } = process.env;
 
 app.use(logger(formatsLogger));
 app.use(cors({
-  origin: [FRONT_PROD, FRONT_DEV],
+  origin: [FRONT_PROD, 'http://localhost:3000'],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   exposedHeaders: ['Access-Control-Allow-Origin',
     'Access-Control-Allow-Headers',
