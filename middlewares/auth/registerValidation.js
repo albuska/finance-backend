@@ -1,6 +1,6 @@
-const { registerDataValidation } = require("../services/auth");
-const { httpError } = require("../helpers");
-const db = require("../db");
+const { registerDataValidation } = require("../../services/auth");
+const { httpError } = require("../../helpers");
+const db = require("../../db");
 
 const registerValidation = async (req, res, next) => {
     const { value, error } = registerDataValidation(req.body);

@@ -1,16 +1,15 @@
 const express = require("express");
-// const { authenticate} = require("../../middlewares");
-// const {
-//   UserModel: { schemasUser },
-// } = require("../../models");
+const { authenticate } = require("../../middlewares/auth");
+const { balanceValidation } = require("../../middlewares/balance");
+
 const { ctrlBalance, ctrlIncome, ctrlExpenses, ctrlTransaction } = require("../../controllers");
 
 const router = express.Router();
 
 // balance
-router.get("/balance", ctrlBalance.getGeneralBalance) 
+router.get("/balance", authenticate, ctrlBalance.getGeneralBalance); 
 
-router.post("/balance", ctrlBalance.postBalance) 
+router.post("/balance", authenticate, balanceValidation, ctrlBalance.postBalance); 
 
 router.get("/balance/details", ctrlBalance.detailsBalance); 
 
