@@ -1,5 +1,5 @@
-const { httpError } = require("../helpers");
-const db = require("../db")
+const { httpError } = require("../../helpers");
+const db = require("../../db")
 const jwt = require("jsonwebtoken");
 
 const { SECRET_KEY_TOKEN } = process.env;

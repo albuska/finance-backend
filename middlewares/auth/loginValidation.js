@@ -1,6 +1,6 @@
-const { loginDataValidation } = require("../services/auth");
-const { httpError } = require("../helpers");
-const db = require("../db");
+const { loginDataValidation } = require("../../services/auth");
+const { httpError } = require("../../helpers");
+const db = require("../../db");
 const bcrypt = require('bcrypt');
 
 const loginValidation = async (req, res, next) => {
