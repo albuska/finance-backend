@@ -1,6 +1,7 @@
 const express = require("express");
 const { authenticate } = require("../../middlewares/auth");
 const { balanceValidation } = require("../../middlewares/balance");
+const { addTransactionValidation } = require("../../middlewares/transactions");
 
 const { ctrlBalance, ctrlIncome, ctrlExpenses, ctrlTransaction } = require("../../controllers");
 
@@ -11,7 +12,7 @@ router.get("/balance", authenticate, ctrlBalance.getGeneralBalance);
 
 router.post("/balance", authenticate, balanceValidation, ctrlBalance.postBalance); 
 
-router.get("/balance/details", ctrlBalance.detailsBalance); 
+router.get("/balance/details", ctrlBalance.detailsBalance); // only for testing
 
 // expenses
 router.get("/expenses", ctrlExpenses.getAllExpenses);
@@ -23,15 +24,15 @@ router.get("/expenses/summary", ctrlExpenses.summaryExpenses);
 // income
 router.get("/income", ctrlIncome.allIncomes);
 
-router.post("/income/:id", ctrlIncome.postNewIncome);
+// router.post("/income/:id", ctrlIncome.postNewIncome);
 
 router.get("/income/currentMonth", ctrlIncome.currentMonth); 
 
 router.get("/income/summary", ctrlIncome.summaryIncome);
 
 // transaction
-router.post("/transaction/:id", ctrlTransaction.postTransaction) 
+router.post("/", authenticate, addTransactionValidation, ctrlTransaction.postTransaction); 
 
-router.delete("/transaction/:id", ctrlTransaction.deleteTransaction)
+router.delete("/:id", ctrlTransaction.deleteTransaction);
 
 module.exports = router; 
