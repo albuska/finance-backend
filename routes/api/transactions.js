@@ -33,6 +33,6 @@ router.get("/income/summary", ctrlIncome.summaryIncome);
 // transaction
 router.post("/", authenticate, addTransactionValidation, ctrlTransaction.postTransaction); 
 
-router.delete("/:id", ctrlTransaction.deleteTransaction);
+router.delete("/:id", authenticate, ctrlTransaction.deleteTransaction);
 
 module.exports = router; 
