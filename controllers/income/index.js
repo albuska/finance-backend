@@ -1,11 +1,11 @@
-const { allIncomes } = require("./allIncomes");
+const { getAllIncomes } = require("./getAllIncomes");
 const { currentMonth } = require("./currentMonth");
 const { postNewIncome } = require("./postNewIncome");
 const { summaryIncome } = require("./summaryIncome");
 
 
 module.exports = {
-    allIncomes,
+    getAllIncomes,
     currentMonth,
     postNewIncome,
     summaryIncome
