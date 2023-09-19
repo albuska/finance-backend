@@ -11,7 +11,7 @@ const transactionDataValidation = (data) => {
             'any.required': 'The date field is required',
         }),
         category: Joi.string().valid(...Object.values(
-            data.type === typeOfTransactionEnum.EXPENSES ? categoryOfExpensesEnum : categoryOfIncomeEnum
+            data.type == typeOfTransactionEnum.EXPENSES ? categoryOfExpensesEnum : categoryOfIncomeEnum
         )).required().messages({
             'any.required': 'The category is required',
             'string.base': 'The category must be a string',
@@ -29,5 +29,10 @@ const transactionDataValidation = (data) => {
         })
     }).validate(data)
 };
+
+const getTypeOfEnum = (type) => {
+    if (type === typeOfTransactionEnum.INCOME) return categoryOfIncomeEnum;
+    if (type === typeOfTransactionEnum.EXPENSES) return categoryOfExpensesEnum;
+}
 
 module.exports = transactionDataValidation;

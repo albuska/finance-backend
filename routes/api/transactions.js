@@ -9,20 +9,19 @@ const router = express.Router();
 
 // balance
 router.get("/balance", authenticate, ctrlBalance.getGeneralBalance); 
-
 router.post("/balance", authenticate, balanceValidation, ctrlBalance.postBalance); 
 
 router.get("/balance/details", ctrlBalance.detailsBalance); // only for testing
 
 // expenses
-router.get("/expenses", ctrlExpenses.getAllExpenses);
+router.get("/expenses", authenticate, ctrlExpenses.getAllExpenses);
 
 router.get("/expenses/currentMonth", ctrlExpenses.currentMonthExpenses); 
 
 router.get("/expenses/summary", ctrlExpenses.summaryExpenses);
 
 // income
-router.get("/income", ctrlIncome.allIncomes);
+router.get("/income", authenticate, ctrlIncome.getAllIncomes);
 
 // router.post("/income/:id", ctrlIncome.postNewIncome);
 

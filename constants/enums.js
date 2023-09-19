@@ -21,7 +21,7 @@ const categoryOfIncomeEnum = {
 
 const typeOfTransactionEnum = {
     INCOME: 'income',
-    EXPENSES: 'expenses'
+    EXPENSES: 'expense'
 }
 
 module.exports = {
