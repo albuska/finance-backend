@@ -9,12 +9,12 @@ CREATE TABLE users(
 
 CREATE TABLE transactions (
     id SERIAL PRIMARY KEY,
-    date DATE NOT NULL,
+    date TIMESTAMPTZ NOT NULL,
     description VARCHAR(255) NOT NULL,
-    category VARCHAR(255),
+    category VARCHAR(255)NOT NULL,
     sum NUMERIC(10, 2) NOT NULL,
-    type VARCHAR(10) CHECK (type IN ('income', 'expense')),
-    fk_user_id VARCHAR(255),
+    type VARCHAR(10) CHECK (type IN ('income', 'expense'))NOT NULL,
+    fk_user_id VARCHAR(255) NOT NULL,
     FOREIGN KEY (fk_user_id) REFERENCES users (id)
 );
 
