@@ -2,14 +2,15 @@ const { ctrlWrapper } = require("../../helpers");
 const db = require("../../db");
 
 const postBalance = async (req, res) => {
-    const { id, balance } = req.user;
+    const { id } = req.user;
+    const { start_balance } = req.body;
 
     const { rows } = await db.query(`
     UPDATE users
-    SET balance=$2
+    SET start_balance=$2, balance=$2
     WHERE id=$1
     RETURNING id, name, email, balance`,
-        [id, balance]
+        [id, start_balance]
     );
 
     const updUser = rows[0];

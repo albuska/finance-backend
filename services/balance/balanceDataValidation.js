@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const balanceDataValidation = (data) => {
         return Joi.object().options({ abortEarly: false }).keys({
-            balance: Joi.number().greater(0).required()
+            start_balance: Joi.number().greater(0).required()
         .messages({
             'number.base': 'The balance must be a number',
             'any.required': 'The balance field is required',
