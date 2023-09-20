@@ -4,9 +4,9 @@ const { categoryOfExpensesEnum, categoryOfIncomeEnum, typeOfTransactionEnum } = 
 const transactionDataValidation = (data) => {
     console.log(data);
     return Joi.object().options({ abortEarly: false }).keys({
-        date: Joi.date().required().messages({
-            'any.required': 'The date field is required',
-        }),
+        // date: Joi.date().required().messages({
+        //     'any.required': 'The date field is required',
+        // }),
         description: Joi.string().required().messages({
             'any.required': 'The date field is required',
         }),
