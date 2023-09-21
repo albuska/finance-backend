@@ -5,7 +5,8 @@ CREATE TABLE users(
     password VARCHAR(255) NOT NULL,
     token VARCHAR(255),
     balance NUMERIC(10, 2),
-    start_balance NUMERIC(10, 2)
+    start_balance NUMERIC(10, 2),
+    is_verified BOOLEAN DEFAULT false
 );
 
 CREATE TABLE transactions (
