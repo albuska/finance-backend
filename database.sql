@@ -4,7 +4,8 @@ CREATE TABLE users(
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     token VARCHAR(255),
-    balance NUMERIC(10, 2)
+    balance NUMERIC(10, 2),
+    start_balance NUMERIC(10, 2)
 );
 
 CREATE TABLE transactions (

@@ -1,19 +1,25 @@
 const { ctrlWrapper } = require("../../helpers"); 
 const db = require("../../db");
+const { date } = require("joi");
+
+
 
 const detailsBalance = async (req, res) => {
+
+    const transaction = {
+    date: Date.now(),
+    description: 'fish',
+    category: 'some category',
+    sum: 25.00,
+    type: 'income',
+    fk_user_id: user.id
+}
     const transactions = await db.query(`
 
-    CREATE TABLE transactions (
-    id SERIAL PRIMARY KEY,
-    date DATE NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    category VARCHAR(255),
-    sum NUMERIC(10, 2) NOT NULL,
-    type VARCHAR(10) CHECK (type IN ('income', 'expense')),
-    fk_user_id VARCHAR(255),
-    FOREIGN KEY (fk_user_id) REFERENCES users (id)
-);
+    INSERT INTO transactions (date, description, category, sum, type, fk_user_id)
+    values ($1, $2, $3, $4, $5, $6),
+        [transaction.date, transaction.description, transaction.category, transaction.sum, transaction.type, fk_user_id.user.id]
+    RETURNING id, date, description, category, sum, type, fk_user_id
 
     SELECT *
     FROM transactions
