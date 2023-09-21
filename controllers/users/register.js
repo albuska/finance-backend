@@ -1,17 +1,22 @@
 const { v4: uuidv4 } = require("uuid");
 const db = require("../../db");
 const { ctrlWrapper } = require("../../helpers");
-const { createHashPassword, getToken } = require("../../utils");
+const { sendEmail } = require("../../services/auth");
+const { createHashPassword, getToken } = require("../../utils")
+
+
+const { BASE_URL } = process.env;
 
 const register = async (req, res) => {
 
   const { name, email, password } = req.body;
 
-  const id = uuidv4()
+  const id = uuidv4(); 
   
   const hashPassword = await createHashPassword(password);
 
   const verificationToken = await getToken(id); 
+  console.log(verificationToken);
 
   const { rows: newUser } = await db.query(`
   INSERT INTO users (id, name, email, password, token) 
@@ -21,6 +26,14 @@ const register = async (req, res) => {
   );
 
   const { name: dbName, email: dbEmail, token, balance } = newUser[0];
+
+  const verifyEmail = {
+    to: email,
+    subject: "Verify email",
+    html: `<a target="_blank" href="http://localhost:3000/api/verify/${verificationToken}">Click verify email</a>`,
+  };
+
+  await sendEmail(verifyEmail); 
 
   res.status(201).json({
     user: {
