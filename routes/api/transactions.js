@@ -17,15 +17,16 @@ router.get("/balance/details", ctrlBalance.detailsBalance); // only for testing
 router.get("/expenses", authenticate, ctrlExpenses.getAllExpenses);
 router.get("/expenses/month", authenticate, ctrlExpenses.monthExpenses); 
 router.get("/expenses/summary", authenticate, ctrlExpenses.summaryExpenses);
+router.get("/expenses/category", authenticate, ctrlExpenses.currentMonthCategoryExpenses);
 
 // income
 router.get("/income", authenticate, ctrlIncome.getAllIncomes);
+router.get("/income/month", authenticate, ctrlIncome.monthIncome); 
+router.get("/income/summary", authenticate, ctrlIncome.summaryIncome);
+router.get("/income/category", authenticate, ctrlIncome.currentMonthCategoryIncome);
+
 
 // router.post("/income/:id", ctrlIncome.postNewIncome);
-
-router.get("/income/month", authenticate, ctrlIncome.monthIncome); 
-
-router.get("/income/summary", authenticate, ctrlIncome.summaryIncome);
 
 // transaction
 router.post("/", authenticate, addTransactionValidation, ctrlTransaction.postTransaction); 
