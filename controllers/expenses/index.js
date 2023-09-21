@@ -1,9 +1,9 @@
 const { getAllExpenses } = require("./getAllExpenses");
-const { currentMonthExpenses } = require("./currentMonthExpenses");
+const { monthExpenses } = require("./monthExpenses");
 const { summaryExpenses } = require("./summaryExpenses");
 
 module.exports = {
     getAllExpenses,
-    currentMonthExpenses,
+    monthExpenses,
     summaryExpenses,
 };

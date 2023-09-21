@@ -1,19 +1,14 @@
 const { ctrlWrapper } = require("../../helpers"); 
-const db = require("../../db");
+const { reportTypeMonthSum } = require("../../services/reports");
 
 const summaryExpenses = async (req, res) => {
     const { id } = req.user;
+    const type = 'expense'
 
-    const { rows } = await db.query(`
-    select date_trunc('month', "date") as mounth ,  sum(sum) as total_sum
-    from transactions t 
-    where "type"='expense' and fk_user_id=$1
-    group by mounth
-    order by mounth`,
-        [id]);
+    const report = await reportTypeMonthSum(id, type);
     
     res.status(200).json({
-        rows
+        report
     })
 };
 
