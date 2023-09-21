@@ -3,6 +3,8 @@ const { monthIncome } = require("./monthIncome");
 const { postNewIncome } = require("./postNewIncome");
 const { summaryIncome } = require("./summaryIncome");
 const { currentMonthCategoryIncome } = require("./currentMonthCategoryIncome");
+const { currentMonthDescIncome } = require("./currentMonthDescIncome");
+
 
 
 module.exports = {
@@ -10,5 +12,6 @@ module.exports = {
     monthIncome,
     postNewIncome,
     summaryIncome,
-    currentMonthCategoryIncome
+    currentMonthCategoryIncome,
+    currentMonthDescIncome
 };
