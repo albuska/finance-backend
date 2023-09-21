@@ -18,7 +18,7 @@ router.get("/expenses", authenticate, ctrlExpenses.getAllExpenses);
 
 router.get("/expenses/currentMonth", ctrlExpenses.currentMonthExpenses); 
 
-router.get("/expenses/summary", ctrlExpenses.summaryExpenses);
+router.get("/expenses/summary", authenticate, ctrlExpenses.summaryExpenses);
 
 // income
 router.get("/income", authenticate, ctrlIncome.getAllIncomes);
@@ -27,7 +27,7 @@ router.get("/income", authenticate, ctrlIncome.getAllIncomes);
 
 router.get("/income/currentMonth", ctrlIncome.currentMonth); 
 
-router.get("/income/summary", ctrlIncome.summaryIncome);
+router.get("/income/summary", authenticate, ctrlIncome.summaryIncome);
 
 // transaction
 router.post("/", authenticate, addTransactionValidation, ctrlTransaction.postTransaction); 
