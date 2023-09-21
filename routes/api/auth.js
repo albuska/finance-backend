@@ -1,14 +1,14 @@
 const express = require("express");
-const { authenticate, registerValidation, loginValidation } = require("../../middlewares/auth");
+const { authenticate, registerValidation, loginValidation, verifyValidation } = require("../../middlewares/auth");
 
 const { ctrlUsers } = require("../../controllers");
 
 const router = express.Router();
 
 
-// router.get("/verify/:verificationToken", ctrlUsers.verifyEmail);
+router.get("/verify/:verificationToken", ctrlUsers.verifyEmail);
 
-// router.post("/verify", validateBody(schemasUser.verifySchema), ctrlUsers.resendVerifyEmail);
+router.post("/verify", ctrlUsers.resendVerifyEmail);
 
 router.post("/auth/login", loginValidation, ctrlUsers.login) 
 
