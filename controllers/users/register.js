@@ -5,7 +5,7 @@ const { sendEmail } = require("../../services/auth");
 const { createHashPassword, getToken } = require("../../utils")
 
 
-const { BASE_URL } = process.env;
+const { BASE_URL, FRONT_DEV } = process.env;
 
 const register = async (req, res) => {
 
@@ -29,7 +29,7 @@ const register = async (req, res) => {
   const verifyEmail = {
     to: email,
     subject: "Verify email",
-    html: `<a target="_blank" href="${BASE_URL}/api/verify/${verificationToken}">Click verify email</a>`,
+    html: `<a target="_blank" href="${FRONT_DEV}/api/verify/${verificationToken}">Click verify email</a>`,
   };
 
   await sendEmail(verifyEmail); 

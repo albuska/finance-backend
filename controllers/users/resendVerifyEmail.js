@@ -3,43 +3,33 @@ const db = require("../../db");
 const { sendEmail } = require("../../services/auth");
 
 
+const { BASE_URL, FRONT_DEV } = process.env;
+
 const resendVerifyEmail = async (req, res) => {
-  //   console.log("reqBody", req.body);
-  //   console.log("db-->", db);
 
-  //   const { BASE_URL } = process.env;
+    const { email } = req.body;
 
-  //   const { email } = req.body;
+    console.log("email", email);
 
-  //   let user;
+ const user = await db.query('SELECT email FROM users WHERE email = $1', [email]);
 
-  //   db.query('SELECT * FROM users WHERE email = $3', [email], (error, result) => {
-  //       if (error) {
-  //         console.error('Помилка запиту:', error);
-  //         return;
-  //       }
+    console.log("user", user);
 
-  //       const user = result.rows[0];
-  //       return user; 
-  //   });
+  if (!user) throw httpError(401, "Email not found");
 
-  //   console.log(user);
+  if (user.verify) throw httpError(400, "Verification has already been passed");
 
-  // if (!user) throw httpError(401, "Email not found");
+  const verifyEmail = {
+    to: email,
+    subject: "Verify email",
+    html: `<a target="_blank" href="${FRONT_DEV}/api/verify/${user.verificationToken}">Click verify email</a>`,
+  };
 
-  // if (user.verify) throw httpError(400, "Verification has already been passed");
+  await sendEmail(verifyEmail);
 
-  // const verifyEmail = {
-  //   to: email,
-  //   subject: "Verify email",
-  //   html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${user.verificationToken}">Click verify email</a>`,
-  // };
-
-  // await sendEmail(verifyEmail);
-
-  // res.json({
-  //   message: "Verification email sent",
-  // });
+  res.json({
+    message: "Verification email sent",
+  });
 }
 
 module.exports = {

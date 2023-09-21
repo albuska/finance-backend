@@ -11,9 +11,7 @@ const verifyEmail = async (req, res) => {
             throw httpError(404, "User not found");
         } 
 
-        if(user.rows.length !== 0) {
             await db.query('UPDATE users SET is_verified = true, token = $1 WHERE id = $2', ["", user.rows[0].id]);
-        }
            
 console.log("user", user.rows);
 
