@@ -9,14 +9,13 @@ const { BASE_URL } = process.env;
 
 const register = async (req, res) => {
 
-  const { name, email, password } = req.body;
+  const { name, email, password} = req.body;
 
   const id = uuidv4(); 
   
   const hashPassword = await createHashPassword(password);
 
-  const verificationToken = await getToken(id); 
-  console.log(verificationToken);
+  const verificationToken = await getToken(id);  
 
   const { rows: newUser } = await db.query(`
   INSERT INTO users (id, name, email, password, token) 
@@ -30,7 +29,7 @@ const register = async (req, res) => {
   const verifyEmail = {
     to: email,
     subject: "Verify email",
-    html: `<a target="_blank" href="http://localhost:3000/api/verify/${verificationToken}">Click verify email</a>`,
+    html: `<a target="_blank" href="${BASE_URL}/api/verify/${verificationToken}">Click verify email</a>`,
   };
 
   await sendEmail(verifyEmail); 

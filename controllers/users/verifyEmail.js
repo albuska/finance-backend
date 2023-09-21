@@ -2,30 +2,25 @@ const { ctrlWrapper, httpError } = require("../../helpers");
 const db = require("../../db");
 
 const verifyEmail = async (req, res) => {
-//     const { verificationToken } = req.params;
+    const { verificationToken } = req.params;
 
-//     console.log(req.params);
+        const user = await db.query('SELECT * FROM users WHERE token = $1', [verificationToken]);
+        console.log("BeforeUser", user);
 
-//     console.log("verificationToken", verificationToken);
+        if (!user || user.length === 0) {
+            throw httpError(404, "User not found");
+        } 
 
-//     try {
-//         const user = await db.oneOrNone('SELECT * FROM users WHERE token = $1', verificationToken);
+        if(user.rows.length !== 0) {
+            await db.query('UPDATE users SET is_verified = true, token = $1 WHERE id = $2', ["", user.rows[0].id]);
+        }
+           
+console.log("user", user.rows);
 
-// console.log("user ==>", user);
+        res.json({
+            message: "Verification successful",
+        });
 
-//         if (!user) {
-//             throw httpError(404, "User not found");
-//         }
-
-//         await db.none('UPDATE users SET verify = true, token = $1 WHERE id = $2', ["", user.id]);
-
-//         res.json({
-//             message: "Verification successful",
-//         });
-//     } catch (error) {
-//         console.error("Error:", error);
-//         throw httpError(500, "Internal Server Error");
-//     }
 };
 
 module.exports = {
