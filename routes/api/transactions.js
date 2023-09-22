@@ -11,8 +11,6 @@ const router = express.Router();
 router.get("/balance", authenticate, ctrlBalance.getGeneralBalance); 
 router.post("/balance", authenticate, balanceValidation, ctrlBalance.postBalance); 
 
-router.get("/balance/details", ctrlBalance.detailsBalance); // only for testing
-
 // expenses
 router.get("/expenses", authenticate, ctrlExpenses.getAllExpenses);
 router.get("/expenses/month", authenticate, ctrlExpenses.monthExpenses); 
