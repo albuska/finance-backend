@@ -29,4 +29,5 @@ router.get("/income/description", authenticate, ctrlIncome.currentMonthDescIncom
 router.post("/", authenticate, addTransactionValidation, ctrlTransaction.postTransaction); 
 router.delete("/:id", authenticate, ctrlTransaction.deleteTransaction);
 
+
 module.exports = router; 
