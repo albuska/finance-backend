@@ -20,11 +20,11 @@ const register = async (req, res) => {
   const { rows: newUser } = await db.query(`
   INSERT INTO users (id, name, email, password, token) 
   values ($1, $2, $3, $4, $5) 
-  RETURNING id, name, email, password, token, balance, isVerified`,
+  RETURNING id, name, email, password, token, balance`,
     [id, name, email, hashPassword, verificationToken]
   );
 
-  const { name: dbName, email: dbEmail, token, isVerified, balance } = newUser[0];
+  const { name: dbName, email: dbEmail, token, balance } = newUser[0];
 
   const verifyEmail = {
     to: email,
@@ -38,7 +38,6 @@ const register = async (req, res) => {
     user: {
       name: dbName,
       email: dbEmail,
-      isVerified,
       balance
     },
     token
