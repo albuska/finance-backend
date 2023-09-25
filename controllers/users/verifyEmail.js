@@ -4,6 +4,8 @@ const db = require("../../db");
 const verifyEmail = async (req, res) => {
     const { verificationToken } = req.params;
 
+    console.log(verificationToken);
+
         const user = await db.query('SELECT * FROM users WHERE token = $1', [verificationToken]);
         console.log("BeforeUser", user);
 
