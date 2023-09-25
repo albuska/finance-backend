@@ -11,13 +11,13 @@ const resendVerifyEmail = async (req, res) => {
 
     console.log("email", email);
 
- const user = await db.query('SELECT email FROM users WHERE email = $1', [email]);
+ const user = await db.query('SELECT * FROM users WHERE email = $1', [email]);
 
     console.log("user", user);
 
   if (!user) throw httpError(401, "Email not found");
 
-  if (user.verify) throw httpError(400, "Verification has already been passed");
+  if (user.rows[0].is_verified) throw httpError(400, "Verification has already been passed");
 
   const verifyEmail = {
     to: email,
