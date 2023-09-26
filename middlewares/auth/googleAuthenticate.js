@@ -1,8 +1,9 @@
 const passport = require('passport');
-const {Strategy: GoogleStrategy} = require('passport-google-oauth20'); 
-require("dotenv").config(); 
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
+const { v4: uuidv4 } = require("uuid");
+const {Strategy: GoogleStrategy} = require('passport-google-oauth20'); 
+require("dotenv").config(); 
 const db = require("../../db");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL, FRONT_DEV } = process.env;
@@ -12,29 +13,38 @@ passport.use(new GoogleStrategy({
   clientSecret: GOOGLE_CLIENT_SECRET,
     // callbackURL: `${BASE_URL}/auth/google/callback`,
   callbackURL: `${FRONT_DEV}/api/google/callback`
-  //   passReqToCallback: true,
-}, async (_, __, profile, done) => {
+
+}, async ( _, __, profile, done) => {
       const account = profile._json; 
       let user = {}; 
-    console.log("account", account);
+
   try {
+    const password = await bcrypt.hash(uuid.v4(), 10);
+
    const currentUserQuery = await db.query('SELECT * FROM users WHERE google_id=$1', [account.sub])
+
    if(currentUserQuery.rows.length === 0) {
-    console.log("currentUser", currentUserQuery);
+
+    const idUser = uuidv4();
+
 await db.query(`
-INSERT INTO users (name, google_id) 
-VALUES ($1, $2)`,
-  [account.name, account.sub])
+INSERT INTO users (id, name, email, google_id, password) 
+VALUES ($1, $2, $3, $4, $5)`,
+  [idUser, account.name, account.email, account.sub, password])
 
   const id = await db.query('SELECT id FROM users WHERE google_id=$1', [account.sub])
-user = {
+console.log("id ===>", id);
+  user = {
   id: id.rows[0].id,
-  name: account.name
+  name: account.name,
+  password
 }   
+
 } else {
 user = {
   id: currentUserQuery.rows[0].id,
-  name: currentUserQuery.rows[0].name
+  name: currentUserQuery.rows[0].name,
+  password
 }
    }
 done(null, user)

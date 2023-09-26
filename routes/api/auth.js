@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get(
     '/google',
-    passport.authenticate('google',  { scope: 'profile' })
+    passport.authenticate('google', {scope: ['profile', 'email']})
   );
   router.get(
     '/google/callback',
@@ -14,7 +14,6 @@ router.get(
     (req, res) => {
       res.send(req.user); 
     }
-    // ctrlUsers.googleAuth
   );
 
 router.get("/verify/:verificationToken", ctrlUsers.verifyEmail);
