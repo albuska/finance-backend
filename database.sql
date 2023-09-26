@@ -7,7 +7,6 @@ CREATE TABLE users(
     balance NUMERIC(10, 2),
     start_balance NUMERIC(10, 2),
     is_verified BOOLEAN DEFAULT false
-    google_id INT NOT NULL UNIQUE
 );
 
 CREATE TABLE transactions (

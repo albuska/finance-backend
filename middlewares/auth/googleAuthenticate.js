@@ -15,21 +15,38 @@ passport.use(new GoogleStrategy({
   //   passReqToCallback: true,
 }, async (_, __, profile, done) => {
       const account = profile._json; 
+      let user = {}; 
     console.log("account", account);
   try {
    const currentUserQuery = await db.query('SELECT * FROM users WHERE google_id=$1', [account.sub])
    if(currentUserQuery.rows.length === 0) {
     console.log("currentUser", currentUserQuery);
 await db.query(`
-INSERT INTO users (google_id, name) 
-VALUES ($1, $2) 
-RETURNING google_id, name`,
-  [account.sub, account.name])
-   } else {
+INSERT INTO users (name, google_id) 
+VALUES ($1, $2)`,
+  [account.name, account.sub])
 
+  const id = await db.query('SELECT id FROM users WHERE google_id=$1', [account.sub])
+user = {
+  id: id.rows[0].id,
+  name: account.name
+}   
+} else {
+user = {
+  id: currentUserQuery.rows[0].id,
+  name: currentUserQuery.rows[0].name
+}
    }
-
+done(null, user)
   } catch (error) {
     done(error);
   }  
 }));
+
+passport.serializeUser((user, done) => {
+  done(null, user); 
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user);
+})
