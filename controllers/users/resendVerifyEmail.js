@@ -9,11 +9,7 @@ const resendVerifyEmail = async (req, res) => {
 
     const { email } = req.body;
 
-    console.log("email", email);
-
  const user = await db.query('SELECT * FROM users WHERE email = $1', [email]);
-
-    console.log("user", user);
 
   if (!user) throw httpError(401, "Email not found");
 

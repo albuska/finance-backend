@@ -1,10 +1,19 @@
 const express = require("express");
+const passport = require('passport');
 const { authenticate, registerValidation, loginValidation, verifyValidation } = require("../../middlewares/auth");
-
 const { ctrlUsers } = require("../../controllers");
-
+require("../../middlewares/auth/googleAuthenticate.js")
 const router = express.Router();
 
+router.get(
+    '/google',
+    passport.authenticate('google',  { scope: 'profile' })
+  );
+  router.get(
+    '/google/callback',
+    passport.authenticate('google', { session: true }),
+    // ctrlUsers.googleAuth
+  );
 
 router.get("/verify/:verificationToken", ctrlUsers.verifyEmail);
 

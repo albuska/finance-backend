@@ -28,4 +28,4 @@ const loginValidation = async (req, res, next) => {
     next()
 }
 
-module.exports = loginValidation
+module.exports = loginValidation;

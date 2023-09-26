@@ -2,6 +2,7 @@ const express = require('express');
 const logger = require('morgan')
 const cors = require("cors");
 const dotenv = require('dotenv')
+require("./middlewares/auth/googleAuthenticate.js")
 
 dotenv.config({ path: './.env' }); 
 
