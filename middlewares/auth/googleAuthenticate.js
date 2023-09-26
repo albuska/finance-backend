@@ -12,7 +12,7 @@ passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
     // callbackURL: `${BASE_URL}/auth/google/callback`,
-  callbackURL: `${FRONT_DEV}/api/google/callback`
+  callbackURL: `${BASE_URL}/api/google/callback`
 
 }, async ( _, __, profile, done) => {
       const account = profile._json; 
