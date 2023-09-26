@@ -37,7 +37,7 @@ app.use(passport.session())
 
 app.use("/api", authRouter);
 app.use("/api/transactions", transactionsRouter);
-app.use("api/api-docs", swaggerRouter);
+app.use("/api/api-docs", swaggerRouter);
 
 app.use((req, res) => {
     res.status(404).json({ message: "Not found" });
