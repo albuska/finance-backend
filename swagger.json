@@ -1,5 +1,5 @@
 {
-    "openapi": "3.0.0",
+    "openapi": "3.0.3",
     "info": {
         "version": "1.0",
         "title": "Swagger documentation for the finance project 'Kapusta'",
@@ -9,7 +9,7 @@
     "produces": ["application/json"],
     "servers": [
         { 
-            "url": "https://localhost:3000/api", 
+            "url": "http://localhost:3000/api", 
             "description": "Dev Server" },
         {
             "url": "https://finance-backend-eight.vercel.app/api",
@@ -29,37 +29,354 @@
     ],
 
     "paths": {
-    "/auth/register": {
-        "post": {
-            "tags": ["Auth"],
-            "summary": "User registration",
+        "/auth/register": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "User registration",
 
-            "requestBody": {
-                "description": "Registration's object",
-                "required": true,
+                "requestBody": {
+                    "description": "Registration's object",
+                    "required": true,
 
-            "content": {
-                "application/json": {
-                    "schema": {
-                    "$ref": "#/components/schemas/RegistrationRequest"
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/RegistrationRequest"
+                        }
                     }
+                }
+            },
+
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegistrationResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },                    
+
+                    "409": {
+                        "description": "Email is already in use",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegistrationResponse"
+                                }
+                            }
+                        }
+                    }                    
                 }
             }
         },
 
-        "responses": {
-            "201": {
-                "description": "Successful operation",
+        "/auth/login": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "User login",
+
+                "requestBody": {
+                    "description": "Login's object",
+                    "required": true,
+
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/RegistrationResponse"
+                            "$ref": "#/components/schemas/LoginRequest"
                         }
                     }
                 }
+            },
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "Email or password is wrong",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmailOrPasswordError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "default": {
+                        "description":"Response message for error code 401, if email not verified",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"#/components/schemas/NotVerifiedError"
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        },
+
+        "/auth/logout": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "User logout",
+
+                "security": [{ "Bearer": [] }],
+                
+                "requestBody": {
+                    "description": "Logout's object",
+                    "required": true
+                },
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref":"#/components/schemas/LogoutRequest"
+                        }
+                    }
+                },
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LogoutResponse"
+                                }
+                            }
+                        }
+                    }
+                }                
+
             }
         }
+    },
+
+    "components": {
+        "schemas": {
+            "RegistrationRequest": {
+                "type": "object",
+                "required": ["name", "email", "password"],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "UserName"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User's password",
+                        "example": "Qwerty12345!"
+                    }
+                }
+            },
+
+            "RegistrationResponse": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "Username",
+                                "example": "Jhon"
+                            },
+                            "email": {
+                                "type": "string",
+                                "description": "User's email",
+                                "example": "example@gmail.com"
+                            },
+                            "balance": {
+                                "type": "number",
+                                "description": "User's balance",
+                                "example": 150.45
+                            }
+                        }
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "User's access token",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTQ0NjhlMDNjc3E3OTZhZDk3N2Q1YiJ9.Yh8Xgp-e6DL8-23gfFEUaJK6G19qahZPlsrYkLrDccs"
+                    }
+                }
+            },
+            
+            "EmailExistError": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Response message for error code 409",
+                        "example": "Email example@gmail.com already in use"
+                    }
+                }
+            },
+
+            "LoginRequest": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User's password",
+                        "example": "Qwerty12345!"
+                    }
+                }
+            },
+
+            "LoginResponse": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "Username",
+                                "example": "Jhon"
+                            },
+                            "email": {
+                                "type": "string",
+                                "description": "User's email",
+                                "example": "example@gmail.com"
+                            },
+                            "balance": {
+                                "type": "number",
+                                "description": "User's balance",
+                                "example": 150.45
+                            }
+                        }
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "User's access token",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTQ0NjhlMDNjc3E3OTZhZDk3N2Q1YiJ9.Yh8Xgp-e6DL8-23gfFEUaJK6G19qahZPlsrYkLrDccs"
+                    }
+                }
+            },   
+            
+            "EmailOrPasswordError": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Response message for error code 401",
+                        "example": "Email or password is wrong"
+                    }
+                }
+            }, 
+
+            "NotVerifiedError": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Response message for error code 401, if email not verified",
+                        "example": "Email not verified"
+                    }
+                }
+            },
+            
+
+            "LogoutRequest": {
+                "type": "object",
+                "required": ["token"],
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "description": "User's access token",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTQ0NjhlMDNjc3E3OTZhZDk3N2Q1YiJ9.Yh8Xgp-e6DL8-23gfFEUaJK6G19qahZPlsrYkLrDccs"
+                    }
+                }
+            },
+
+
+            "LogoutResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Bye"
+                    }
+                }
+            },           
+
+            "BadRequestError": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Response message for error code 400",
+                        "example": "Bad request"
+                    }
+                }
+            },
+
+            "UnauthorizedError": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Response message for error code 401",
+                        "example": "Unauthorized"
+                    }
+                }
+            }
+            
+        },
+
+        "securitySchemes": {
+            "Bearer": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
         }
-    }
     }
 }
