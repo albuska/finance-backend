@@ -13,12 +13,10 @@ const login = async (req, res) => {
   UPDATE users 
   SET token=$1
   WHERE email=$2
-  RETURNING name, email, token, balance, is_verified`,
+  RETURNING name, email, token, balance`,
     [token, email]);
 
-  const { name, email: dbEmail, token: dbToken, balance, is_verified } = updUser[0];
-
-  if (!is_verified) throw httpError(401, "Email not verified");
+  const { name, email: dbEmail, token: dbToken, balance} = updUser[0];
 
   res.status(200).json({
     user: {
