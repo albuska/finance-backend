@@ -8,11 +8,13 @@ router.get(
     '/google',
     passport.authenticate('google', {scope: ['profile', 'email']})
   );
-  router.get(
+
+router.get(
     '/google/callback',
-    passport.authenticate('google', { session: true }),
+    passport.authenticate('google', { session: true }, { failureRedirect: '/' }),
     (req, res) => {
       res.send(req.user); 
+      res.redirect('/dashboard'); 
     }
   );
 
