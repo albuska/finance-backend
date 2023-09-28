@@ -12,7 +12,7 @@ const logout = async (req, res) => {
     [id]
   );
 
-  res.status(200).json({ rows });
+  res.status(204).json({ rows });
 };
 
 module.exports = {
