@@ -93,14 +93,14 @@
                     "description": "Login's object",
                     "required": true,
 
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/LoginRequest"
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
                         }
                     }
-                }
-            },
+                },
 
                 "responses": {
                     "200": {
@@ -146,7 +146,6 @@
                             }
                         }
                     }
-                    
                 }
             }
         },
@@ -160,29 +159,43 @@
                 
                 "requestBody": {
                     "description": "Logout's object",
-                    "required": true
-                },
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref":"#/components/schemas/LogoutRequest"
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref":"#/components/schemas/LogoutRequest"
+                            }
                         }
                     }
                 },
 
                 "responses": {
-                    "200": {
-                        "description": "Successful operation",
+                    "204": {
+                        "description": "Successful operation"
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/LogoutResponse"
+                                "$ref": "#/components/schemas/BadRequestError"
                                 }
                             }
                         }
-                    }
-                }                
-
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
             }
         }
     },
@@ -322,7 +335,6 @@
                     }
                 }
             },
-            
 
             "LogoutRequest": {
                 "type": "object",
@@ -335,17 +347,6 @@
                     }
                 }
             },
-
-
-            "LogoutResponse": {
-                "type": "object",
-                "properties": {
-                    "message": {
-                        "type": "string",
-                        "example": "Bye"
-                    }
-                }
-            },           
 
             "BadRequestError": {
                 "type": "object",
@@ -364,7 +365,7 @@
                     "message": {
                         "type": "string",
                         "description": "Response message for error code 401",
-                        "example": "Unauthorized"
+                        "example": "Not authorized"
                     }
                 }
             }
