@@ -11,13 +11,14 @@ const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL, FRONT_DEV } = process.
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: `${FRONT_DEV}/api/google/callback`
-  // callbackURL: `${BASE_URL}/api/google/callback`
+  // callbackURL: `${FRONT_DEV}/api/google/callback`
+  callbackURL: `${BASE_URL}/api/google/callback`
 
-}, async ( _, __, profile, done) => {
+}, async (req, _, __, profile, done) => {
       const account = profile._json; 
       let user = {}; 
 
+      console.log("reqBody", req)
   try {
     const password = await bcrypt.hash(uuid.v4(), 10);
 
@@ -26,6 +27,12 @@ passport.use(new GoogleStrategy({
    if(currentUserQuery.rows.length === 0) {
 
     const idUser = uuidv4();
+
+    if(account.email === currentUserQuery.rows[0].email) {
+      console.log("acEmail", account.email);
+      console.log("currentUserQuery.rows[0].email", currentUserQuery.rows[0].email);
+      alert("Sorry!!!")
+    }
 
 await db.query(`
 INSERT INTO users (id, name, email, google_id, password) 
