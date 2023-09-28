@@ -197,7 +197,151 @@
                     }                
                 }
             }
-        }
+        },
+
+        "/transactions/balance": {
+            "get": {
+                "tags": ["Transactions"],
+                "summary": "User's transactions",
+
+                "security": [{ "Bearer": [] }],
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BalanceResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+
+        "/transactions/balance/": {
+            "post": {
+                "tags": ["Transactions"],
+                "summary": "User's transactions",
+
+                "security": [{ "Bearer": [] }],
+
+                "requestBody": {
+                    "description": "AddBalance's object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref":"#/components/schemas/AddBalanceRequest"
+                            }
+                        }
+                    }
+                },                
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/AddBalanceResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/transactions/expenses": {
+            "get": {
+                "tags": ["Transactions"],
+                "summary": "All user's expenses transactions",
+
+                "security": [{ "Bearer": [] }],                
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/GetAllExpensesResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        }        
     },
 
     "components": {
@@ -347,6 +491,68 @@
                     }
                 }
             },
+            
+            "BalanceResponse": {
+                "type": "object",
+                "properties": {
+                    "start_balance": {
+                        "type": "number",
+                        "description": "User's balance",
+                        "example": 150.45
+                    }
+                }
+            },
+            
+            "AddBalanceRequest": {
+                "type": "object",
+                "required": ["balance"],
+                "properties": {
+                    "start_balance": {
+                        "type": "number",
+                        "description": "User add's his(her) start balance",
+                        "example": 150.45
+                    }
+                }
+            },
+            
+            "AddBalanceResponse": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "Username",
+                                "example": "Jhon"
+                            },
+                            "email": {
+                                "type": "string",
+                                "description": "User's email",
+                                "example": "example@gmail.com"
+                            },
+                            "balance": {
+                                "type": "number",
+                                "description": "User's balance",
+                                "example": 150.45
+                            }
+                        }
+                    }
+                }
+            }, 
+            
+            "GetAllExpensesResponse": {
+                "type": "object",
+                "properties": {
+                    "transactions": {
+                        "type": "array",
+                        "items": {
+                            "$ref":"#/components/schemas/Transaction"
+                        },
+                        "description": "An array of transactions"
+                    }                   
+                }
+            },             
 
             "BadRequestError": {
                 "type": "object",
@@ -368,9 +574,51 @@
                         "example": "Not authorized"
                     }
                 }
-            }
+            },
+
+            "Transaction": {
+                "type":"object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "description": "Transaction's id",
+                        "example": 12345
+                    },
+
+                    "date": {
+                        "type": "string",
+                        "description": "Transaction's timestamp",
+                        "example": "2023-09-28T20:07:35.283Z"
+                    },
+
+                    "category": {
+                        "type": "string",
+                        "description": "Transaction's category",
+                        "example": "Transport"
+                    },
+
+                    "description": {
+                        "type": "string",
+                        "description": "Transaction's description",
+                        "example": "Metro"
+                    },
+
+                    "type": {
+                        "type": "string",
+                        "description": "Transaction's type",
+                        "example": "expense"
+                    },
+                    
+                    "sum": {
+                        "type": "number",
+                        "description": "Transaction's sum",
+                        "example": 150.45
+                    }                          
+                }            
+            }            
             
         },
+
 
         "securitySchemes": {
             "Bearer": {
