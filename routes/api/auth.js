@@ -11,10 +11,9 @@ router.get(
 
 router.get(
     '/google/callback',
-    passport.authenticate('google', { session: true }, { failureRedirect: '/' }),
+    passport.authenticate('google', { session: true }),
     (req, res) => {
       res.send(req.user); 
-      res.redirect('/dashboard'); 
     }
   );
 
