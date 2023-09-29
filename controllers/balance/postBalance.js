@@ -9,7 +9,7 @@ const postBalance = async (req, res) => {
     UPDATE users
     SET start_balance=$2, balance=$2
     WHERE id=$1
-    RETURNING id, name, email, balance`,
+    RETURNING name, email, balance`,
         [id, start_balance]
     );
 

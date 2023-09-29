@@ -8,7 +8,7 @@ const transactionDataValidation = (data) => {
         //     'any.required': 'The date field is required',
         // }),
         description: Joi.string().required().messages({
-            'any.required': 'The date field is required',
+            'any.required': 'The description field is required',
         }),
         category: Joi.string().valid(...Object.values(
             data.type == typeOfTransactionEnum.EXPENSES ? categoryOfExpensesEnum : categoryOfIncomeEnum
@@ -18,9 +18,9 @@ const transactionDataValidation = (data) => {
             'any.only': `The category must be one this list: ${Object.values(categoryOfExpensesEnum)} for expenses or ${Object.values(categoryOfIncomeEnum)} for income`
         }),
         sum: Joi.number().greater(0).required().messages({
-            'number.base': 'The balance must be a number',
-            'any.required': 'The balance field is required',
-            'number.negative': 'The balance must greater then 0'
+            'number.base': 'The sum must be a number',
+            'any.required': 'The sum field is required',
+            'number.negative': 'The sum must greater then 0'
         }),
         type: Joi.string().valid(...Object.values(typeOfTransactionEnum)).required().messages({
             'any.required': 'The category is required',
