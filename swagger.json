@@ -20,12 +20,25 @@
     "tags": [
         {
         "name": "Auth",
-            "description": "Authorization endpoints"
+        "description": "Authorization endpoints"
         },
         {
         "name": "Transactions",
         "description": "Transactions endpoints"
-        }
+        },
+        {
+        "name": "Balance",
+        "description": "Balance endpoints"
+        },
+        {
+        "name": "Income",
+        "description": "Income endpoints"
+        },
+        {
+        "name": "Expenses",
+        "description": "Expenses endpoints"
+        }                
+
     ],
 
     "paths": {
@@ -201,7 +214,7 @@
 
         "/transactions/balance": {
             "get": {
-                "tags": ["Transactions"],
+                "tags": ["Balance"],
                 "summary": "User's transactions",
 
                 "security": [{ "Bearer": [] }],
@@ -240,12 +253,10 @@
                         }
                     }                
                 }
-            }
-        },
+            },
 
-        "/transactions/balance/": {
             "post": {
-                "tags": ["Transactions"],
+                "tags": ["Balance"],
                 "summary": "User's transactions",
 
                 "security": [{ "Bearer": [] }],
@@ -296,12 +307,12 @@
                         }
                     }                
                 }
-            }
+            }            
         },
         
         "/transactions/expenses": {
             "get": {
-                "tags": ["Transactions"],
+                "tags": ["Expenses"],
                 "summary": "All user's expenses transactions",
 
                 "security": [{ "Bearer": [] }],                
@@ -312,7 +323,527 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                "$ref": "#/components/schemas/GetAllExpensesResponse"
+                                "$ref": "#/components/schemas/GetAllTransactionsByTypeResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/transactions/expenses/month": {
+            "get": {
+                "tags": ["Expenses"],
+                "summary": "All user's expenses transactions for the selected month",
+
+                "security": [{ "Bearer": [] }],                
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/GetAllTransactionsByTypeResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/transactions/expenses/summary": {
+            "get": {
+                "tags": ["Expenses"],
+                "summary": "All user's expenses transactions are grouped into months (month/sum)",
+
+                "security": [{ "Bearer": [] }],                
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/GroupedTransactionsByTypeResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/transactions/expenses/category": {
+            "get": {
+                "tags": ["Expenses"],
+                "summary": "All user's expenses transactions are grouped into categories (category/sum)",
+
+                "security": [{ "Bearer": [] }],                
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/GroupedTransactionsByCategoryResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/transactions/expenses/description": {
+            "get": {
+                "tags": ["Expenses"],
+                "summary": "All user's expenses transactions are grouped into description (description/sum)",
+
+                "security": [{ "Bearer": [] }],                
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/GroupedTransactionsByDescriptionResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/transactions/income": {
+            "get": {
+                "tags": ["Income"],
+                "summary": "All user's expenses transactions",
+
+                "security": [{ "Bearer": [] }],                
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/GetAllTransactionsByTypeResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/transactions/income/month": {
+            "get": {
+                "tags": ["Income"],
+                "summary": "All user's expenses transactions for the selected month",
+
+                "security": [{ "Bearer": [] }],                
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/GetAllTransactionsByTypeResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/transactions/income/summary": {
+            "get": {
+                "tags": ["Income"],
+                "summary": "All user's expenses transactions are grouped into months (month/sum)",
+
+                "security": [{ "Bearer": [] }],                
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/GroupedTransactionsByTypeResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/transactions/income/category": {
+            "get": {
+                "tags": ["Income"],
+                "summary": "All user's expenses transactions are grouped into categories (category/sum)",
+
+                "security": [{ "Bearer": [] }],                
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/GroupedTransactionsByCategoryResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/transactions/income/description": {
+            "get": {
+                "tags": ["Income"],
+                "summary": "All user's expenses transactions are grouped into description (description/sum)",
+
+                "security": [{ "Bearer": [] }],                
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/GroupedTransactionsByDescriptionResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/transactions/": {
+            "post": {
+                "tags": ["Transactions"],
+                "summary": "User can add new transaction",
+
+                "security": [{ "Bearer": [] }],
+                
+                "requestBody": {
+                    "description": "Transaction's object",
+                    "required": true,
+                    
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddTransactionRequest"
+                            }
+                        }
+                    }                    
+                },
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/Transaction"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/transactions/{transactionId}": {
+            "delete": {
+                "tags": ["Transactions"],
+                "summary": "User can delete selected transaction",
+
+                "security": [{ "Bearer": [] }],
+                
+                "parameters": 
+                [
+                    {
+                        "name": "transactionId",
+                        "in": "path",
+                        "required": true,
+                        "description": "Transaction's id in path",
+                        "schema": {
+                            "type": "integer",
+                            "description": "Transaction's id in", 
+                            "example": 12345
+                        }                    
+                    }
+                ],
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "description": "Response message for success delete transaction",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Message after successfully deleting",
+                                            "example": "Transaction was deleted successfully"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -372,24 +903,8 @@
                 "type": "object",
                 "properties": {
                     "user": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string",
-                                "description": "Username",
-                                "example": "Jhon"
-                            },
-                            "email": {
-                                "type": "string",
-                                "description": "User's email",
-                                "example": "example@gmail.com"
-                            },
-                            "balance": {
-                                "type": "number",
-                                "description": "User's balance",
-                                "example": 150.45
-                            }
-                        }
+                        "$ref": "#/components/schemas/User",
+                        "description": "User's information"
                     },
                     "token": {
                         "type": "string",
@@ -431,25 +946,10 @@
                 "type": "object",
                 "properties": {
                     "user": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string",
-                                "description": "Username",
-                                "example": "Jhon"
-                            },
-                            "email": {
-                                "type": "string",
-                                "description": "User's email",
-                                "example": "example@gmail.com"
-                            },
-                            "balance": {
-                                "type": "number",
-                                "description": "User's balance",
-                                "example": 150.45
-                            }
-                        }
-                    },
+                        "$ref": "#/components/schemas/User",
+                        "description": "User's information"
+                        },
+                    
                     "token": {
                         "type": "string",
                         "description": "User's access token",
@@ -541,7 +1041,7 @@
                 }
             }, 
             
-            "GetAllExpensesResponse": {
+            "GetAllTransactionsByTypeResponse": {
                 "type": "object",
                 "properties": {
                     "transactions": {
@@ -552,7 +1052,135 @@
                         "description": "An array of transactions"
                     }                   
                 }
-            },             
+            },
+            
+            "GroupedTransactionsByMonthResponse": {
+                "type": "object",
+                "properties": {
+                    "report": {
+                        "type": "array",
+                        "description": "An array of grouped transactions into month",
+                        "items": {
+                            "type": "object",
+                            "description": "Object with sum and month of transactions",
+                            "properties": {
+                                "month": {
+                                    "type": "string",
+                                    "description": "Month of transactions",
+                                    "example": "2023-07-01T00:00:00.000Z"
+                                },
+                                "total_sum": {
+                                    "type": "number",
+                                    "description": "Total sum of transactions in appropriate month",
+                                    "example": 166.00
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            
+            "GroupedTransactionsByCategoryResponse": {
+                "type": "object",
+                "properties": {
+                    "report": {
+                        "type": "array",
+                        "description": "An array of grouped transactions into category",
+                        "items": {
+                            "type": "object",
+                            "description": "Object with sum and category of transactions",
+                            "properties": {
+                                "category": {
+                                    "type": "string",
+                                    "description": "Transaction's category",
+                                    "example": "Transport"
+                                },
+                                "total_sum": {
+                                    "type": "number",
+                                    "description": "Total sum of transactions in appropriate category",
+                                    "example": 166.00
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            
+            "GroupedTransactionsByDescriptionResponse": {
+                "type": "object",
+                "properties": {
+                    "report": {
+                        "type": "array",
+                        "description": "An array of grouped transactions into description",
+                        "items": {
+                            "type": "object",
+                            "description": "Object with sum and description of transactions",
+                            "properties": {
+                                "description": {
+                                    "type": "string",
+                                    "description": "Transaction's description",
+                                    "example": "Transport"
+                                },
+                                "total_sum": {
+                                    "type": "number",
+                                    "description": "Total sum of transactions in appropriate description",
+                                    "example": 166.00
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            
+            "AddTransactionRequest": {
+                "type": "object",
+                "required": ["type", "category", "description", "sum"],
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["income", "expense"],
+                        "description": "User add's type of transaction",
+                        "example": "expense"
+                    },
+
+                    "category": {
+                        "type": "string",
+                        "enum": ["Transport", "Products", "Health", "Alcohol", "Entertainment", 
+                                "Housing", "Technique", "Communal, communication", "Sports, hobbies", 
+                                "Education", "Other", "Salary", "Other income"],
+                        "description": "User add's category of transaction",
+                        "example": "Products"
+                    },
+
+                    "description": {
+                        "type": "string",
+                        "description": "User add's some description into transaction",
+                        "example": "Fish"
+                    },
+                    
+                    "sum": {
+                        "type": "number",
+                        "description": "User add's sum of transaction",
+                        "example": 99.99
+                    }                    
+                }
+            },
+            
+            "AddTransactionResponse": {
+                "type": "object",
+                "properties": {
+                    "transaction": {
+                        "type": "object",
+                        "$ref":"#/components/schemas/Transaction",
+                        "description":"Information about created transaction"
+                    },
+                    "balance": {
+                        "type": "number",
+                        "description": "Sum of user's balance includes just created transaction",
+                        "example": 5000.55
+                    }
+                }
+            },            
 
             "BadRequestError": {
                 "type": "object",
@@ -572,6 +1200,29 @@
                         "type": "string",
                         "description": "Response message for error code 401",
                         "example": "Not authorized"
+                    }
+                }
+            },
+
+            "User": {
+                "type":"object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Username",
+                        "example": "Jhon"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "example": "example@gmail.com"
+                    },
+                    "balance": {
+                        "type": "number",
+                        "description": "User's balance",
+                        "properties": {
+                            "example": 150.45
+                        }
                     }
                 }
             },
@@ -618,7 +1269,6 @@
             }            
             
         },
-
 
         "securitySchemes": {
             "Bearer": {

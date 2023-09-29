@@ -9,7 +9,7 @@ const reportTypeMonthSum = async (id, type) => {
         order by month`,
         [id, type]);
     
-    return rows[0];
+    return rows;
     
 };
 
