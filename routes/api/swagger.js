@@ -16,7 +16,7 @@ const options = {
 
     url: BASE_URL,
     explorer: true,
-    customCssUrl: CSS_URL
+    customJsStr: 'console.log("Hello World")'
 };
 
 
