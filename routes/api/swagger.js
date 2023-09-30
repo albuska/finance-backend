@@ -16,7 +16,7 @@ const { BASE_URL, FRONT_DEV} = process.env;
 // const bundleCore = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.9.0/swagger-ui-es-bundle-core.js";
 // const bundleCoreMap = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.9.0/swagger-ui-es-bundle-core.js.map";
 // const bundleCoreMin = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.9.0/swagger-ui-es-bundle-core.min.js";
-// const cssMin = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.9.0/swagger-ui.min.css";
+const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.9.0/swagger-ui.min.css";
 
 const options = {
     requestInterceptor: function(request){
@@ -27,12 +27,13 @@ const options = {
     url: BASE_URL,
     explorer: true,
     customJsStr: 'console.log("Hello World")',
+    customCssUrl: CSS_URL,
 
     apis: ["src/**/*.js"]
 };
 
 
-swaggerRouter.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+swaggerRouter.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 // swaggerRouter.get('/', swaggerUi.setup(swaggerDocument, options));
 
 // swaggerRouter.use('/', swaggerUi.serve);
