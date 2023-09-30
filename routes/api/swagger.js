@@ -17,13 +17,12 @@ const options = {
     url: BASE_URL,
     explorer: true,
     customJsStr: 'console.log("Hello World")',
-    customCssUrl: CSS_URL,
 
     apis: ["src/**/*.js"]
 };
 
 
 swaggerRouter.use('/', swaggerUi.serve);
-swaggerRouter.get('/', swaggerUi.setup(swaggerDocument, options));
+swaggerRouter.get('/', swaggerUi.setup(swaggerDocument, {customCssUrl: CSS_URL}, options));
 
 module.exports = swaggerRouter;
