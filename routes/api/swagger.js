@@ -15,7 +15,8 @@ const options = {
 
     url: BASE_URL,
     explorer: true,
-    validatorUrl: null
+    validatorUrl: null,
+    CSS_URL: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css"
 };
 
 swaggerRouter.use('/', swaggerUi.serve);
