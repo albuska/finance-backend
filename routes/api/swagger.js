@@ -8,10 +8,10 @@ const { BASE_URL, FRONT_DEV} = process.env;
 
 
 const options = {
-    requestInterceptor: function(request){
-        request.headers.Origin = FRONT_DEV || BASE_URL;
-        return request;
-    },
+    // requestInterceptor: function(request){
+    //     request.headers.Origin = FRONT_DEV || BASE_URL;
+    //     return request;
+    // },
 
     // url: `http://localhost:3000/docs/api-docs`,
     explorer: true,
