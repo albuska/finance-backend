@@ -15,7 +15,7 @@ const options = {
 
     // url: `http://localhost:3000/docs/api-docs`,
     explorer: true,
-    customJsStr: 'console.log("Hello World")',
+    validatorUrl: null
 };
 
 swaggerRouter.use('/', swaggerUi.serve);
