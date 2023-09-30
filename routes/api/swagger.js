@@ -13,7 +13,7 @@ const options = {
     //     return request;
     // },
 
-    // url: `http://localhost:3000/docs/api-docs`,
+    url: BASE_URL,
     explorer: true,
     validatorUrl: null
 };
