@@ -4,14 +4,16 @@ const swaggerDocument = require('../../swagger.json');
 
 const swaggerRouter = express.Router();
 
+const { BASE_URL, FRONT_DEV} = process.env;
+
 
 const options = {
     requestInterceptor: function(request){
-        request.headers.Origin = `http://localhost:3000`;
+        request.headers.Origin = FRONT_DEV || BASE_URL;
         return request;
     },
 
-    url: `http://localhost:3000/docs/api-docs`,
+    // url: `http://localhost:3000/docs/api-docs`,
     explorer: true,
     customJsStr: 'console.log("Hello World")',
 };
