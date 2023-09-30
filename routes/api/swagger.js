@@ -16,7 +16,6 @@ const options = {
 
     url: BASE_URL,
     explorer: true,
-    validatorUrl: null,
     customCssUrl: CSS_URL
 };
 
