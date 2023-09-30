@@ -20,7 +20,8 @@ const options = {
     customCssUrl: CSS_URL
 };
 
+
 swaggerRouter.use('/', swaggerUi.serve);
-swaggerRouter.get('/', swaggerUi.setup(swaggerDocument, options));
+swaggerRouter.get('/', swaggerUi.setup(swaggerDocument, options, { customCssUrl: CSS_URL }));
 
 module.exports = swaggerRouter;
