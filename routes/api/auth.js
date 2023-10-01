@@ -2,8 +2,6 @@ const express = require("express");
 const passport = require('passport');
 const { authenticate, registerValidation, loginValidation, verifyValidation } = require("../../middlewares/auth");
 const { ctrlUsers } = require("../../controllers");
-const authMdwr = require('../../middlewares/auth');
-const authCtrl = require('../../controllers/users');
 const router = express.Router();
 
 router.get(
@@ -13,12 +11,10 @@ router.get(
 
   router.get(
     '/auth/google/callback',
-    passport.authenticate('google', {
-      successRedirect: process.env.FRONT_PROD,
-    }),
-    (req, res) => {
-      res.send(req.user);
-    }
+    passport.authenticate('google',  { session: false }), ctrlUsers.googleAuth
+    // (req, res) => {
+    //   res.send(req.user);
+    // }
   ); 
 
 router.get("/verify/:verificationToken", ctrlUsers.verifyEmail);
