@@ -2,20 +2,22 @@ const express = require("express");
 const passport = require('passport');
 const { authenticate, registerValidation, loginValidation, verifyValidation } = require("../../middlewares/auth");
 const { ctrlUsers } = require("../../controllers");
+const authMdwr = require('../../middlewares/auth');
+const authCtrl = require('../../controllers/users');
 const router = express.Router();
 
 router.get(
-    '/google',
+    '/auth/google',
     passport.authenticate('google', {scope: ['profile', 'email']})
   );
 
-router.get(
-    '/google/callback',
-    passport.authenticate('google', { session: true }),
+  router.get(
+    '/auth/google/callback',
+    passport.authenticate('google'),
     (req, res) => {
-      res.send(req.user); 
+      res.send(req.user);
     }
-  );
+  ); 
 
 router.get("/verify/:verificationToken", ctrlUsers.verifyEmail);
 

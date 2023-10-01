@@ -24,16 +24,15 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use(
-  session({
-    secret: process.env.COOKIE_SECRET,
-    resave: false,
-    saveUninitialized: false
-  })
-)
+app.use(session({
+  secret: process.env.COOKIE_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  // cookie: { secure: false }
+}))
 
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api", authRouter);
 app.use("/api/transactions", transactionsRouter);
