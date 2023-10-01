@@ -11,7 +11,7 @@ router.get(
 
   router.get(
     '/auth/google/callback',
-    passport.authenticate('google',  { session: false }), ctrlUsers.googleAuth
+    passport.authenticate('google'), ctrlUsers.googleAuth
     // (req, res) => {
     //   res.send(req.user);
     // }
