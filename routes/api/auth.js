@@ -7,7 +7,7 @@ const authCtrl = require('../../controllers/users');
 const router = express.Router();
 
 router.get(
-    '/google',
+    '/auth/google',
     passport.authenticate('google', {scope: ['profile', 'email']})
   );
 

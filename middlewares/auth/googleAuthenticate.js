@@ -12,8 +12,8 @@ const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL, FRONT_DEV } = process.
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  // callbackURL: `${FRONT_DEV}/api/auth/google/callback`,
-  callbackURL: `${BASE_URL}/api/auth/google/callback`,
+  callbackURL: `${FRONT_DEV}/api/auth/google/callback`,
+  // callbackURL: `${BASE_URL}/api/auth/google/callback`,
   passReqToCallback: true,
 
 }, async (req, _, __, profile, done) => {
