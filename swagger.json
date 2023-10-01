@@ -1,5 +1,5 @@
 {
-    "openapi": "3.0.3",
+    "openapi": "3.1.0",
     "info": {
         "version": "1.0",
         "title": "Swagger documentation for the finance project 'Kapusta'",
@@ -10,7 +10,8 @@
     "servers": [
         { 
             "url": "http://localhost:3000/api", 
-            "description": "Dev Server" },
+            "description": "Dev Server" 
+        },
         {
             "url": "https://finance-backend-eight.vercel.app/api",
             "description": "Prod Server"
