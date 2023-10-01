@@ -13,7 +13,9 @@ router.get(
 
   router.get(
     '/auth/google/callback',
-    passport.authenticate('google'),
+    passport.authenticate('google', {
+      successRedirect: process.env.FRONT_PROD,
+    }),
     (req, res) => {
       res.send(req.user);
     }
