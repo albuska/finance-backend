@@ -1,32 +1,23 @@
 const express = require("express");
-// const passport = require('passport');
+const passport = require('passport');
 const { authenticate, registerValidation, loginValidation, verifyValidation } = require("../../middlewares/auth");
 const { ctrlUsers } = require("../../controllers");
 const authMdwr = require('../../middlewares/auth');
 const authCtrl = require('../../controllers/users');
 const router = express.Router();
 
-// router.get(
-//     '/google',
-//     passport.authenticate('google', {scope: ['profile', 'email']})
-//   );
+router.get(
+    '/auth/google',
+    passport.authenticate('google', {scope: ['profile', 'email']})
+  );
 
-// router.get(
-//     '/google/callback',
-//     passport.authenticate('google', { session: true }),
-//     (req, res) => {
-//       res.send(req.user); 
-//     }
-//   );
-router.get(
-  '/google',
-  authMdwr.passport.authenticate('google', { scope: ['email', 'profile'] })
-);
-router.get(
-  '/google/callback',
-  authMdwr.passport.authenticate('google', { session: false }),
-  authCtrl.googleAuth
-);
+  router.get(
+    '/auth/google/callback',
+    passport.authenticate('google'),
+    (req, res) => {
+      res.send(req.user);
+    }
+  ); 
 
 router.get("/verify/:verificationToken", ctrlUsers.verifyEmail);
 
