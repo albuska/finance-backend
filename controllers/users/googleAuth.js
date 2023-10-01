@@ -1,15 +1,14 @@
-// const { catchAsync, getToken } = require('../../utils');
+const { catchAsync, getToken } = require('../../utils');
+const db = require("../../db");
 
-// const { FRONT_DEV } = process.env;
+const { FRONTEND_URL, FRONT_PROD } = process.env;
 
-// exports.googleAuth = catchAsync(async (req, res) => {
-//     console.log("req", req);
-//     console.log("user", req.user);
-//     console.log("body", req.body);
-// //   const { _id: id } = req.user;
-// //   const token = getToken(id);
+exports.googleAuth = catchAsync(async (req, res) => {
+  const { id } = req.user;
+  const token = await getToken(id);
 
-// //   await Users.findByIdAndUpdate(id, { token });
+await db.query('UPDATE users SET token=$1 WHERE id=$2', [token, id]);
 
-// //   res.redirect(`${FRONT_DEV}?token=${token}`);
-// });
+  res.redirect(`${FRONTEND_URL}?token=${token}`);
+//   res.redirect(`${FRONT_PROD}?token=${token}`);
+});
