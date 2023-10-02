@@ -14,7 +14,7 @@ const options = {
         request.headers.Origin = FRONT_DEV || BASE_URL;
         return request;
     },
-    dom_id: '#myDomId',
+
     url: BASE_URL,
     explorer: false,
     customJsStr: 'console.log("Hello World")',
