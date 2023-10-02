@@ -9,6 +9,11 @@
     "produces": ["application/json"],
     "servers": [
         {
+            "url": "http://localhost:3000/api",
+            "description": "Dev Server"
+        },
+
+        {
             "url": "https://finance-backend-eight.vercel.app/api",
             "description": "Prod Server"
         }
