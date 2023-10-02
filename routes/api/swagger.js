@@ -7,8 +7,6 @@ const swaggerRouter = express.Router();
 
 const { BASE_URL, FRONT_DEV} = process.env;
 
-const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.9.0/swagger-ui.css";
-
 const options = {
     requestInterceptor: function(request){
         request.headers.Origin = FRONT_DEV || BASE_URL;
@@ -18,7 +16,8 @@ const options = {
     url: BASE_URL,
     explorer: false,
     customJsStr: 'console.log("Hello World")',
-    customCssUrl: CSS_URL,
+    customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.9.0/swagger-ui.css',
+    customfavIcon: 'https://static1.smartbear.co/swagger/media/assets/swagger_fav.png',
 
     apis: ["src/**/*.js"]
 };
