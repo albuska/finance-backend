@@ -19,7 +19,7 @@ const options = {
     customJsStr: 'console.log("Hello World")',
     customCssUrl: CSS_URL,
 
-    // apis: ["src/**/*.js"]
+    apis: ["src/**/*.js"]
 };
 
 
