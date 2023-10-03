@@ -6,7 +6,7 @@ const cors = require("cors");
 const dotenv = require('dotenv');
 // require("./middlewares/auth/googleAuthenticate.js");
 
-// dotenv.config({ path: './.env' }); 
+dotenv.config({ path: './.env' }); 
 
 const authRouter = require("./routes/api/auth");
 const transactionsRouter = require("./routes/api/transactions");
