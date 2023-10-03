@@ -10,5 +10,5 @@ exports.googleAuth = catchAsync(async (req, res) => {
 await db.query('UPDATE users SET token=$1 WHERE id=$2', [token, id]);
 
   // res.redirect(`${FRONTEND_URL}?token=${token}`);
-  res.redirect(`https://nmarkhotsky.github.io/finance-front//finance-front/?token=${token}`);
+  res.redirect(`https://nmarkhotsky.github.io/finance-front/finance-front/?token=${token}`);
 });
