@@ -1,6 +1,6 @@
 const express = require("express");
-// const passport = require('passport');
-const { authenticate, registerValidation, loginValidation, verifyValidation, passport } = require("../../middlewares/auth");
+const passport = require('passport');
+const { authenticate, registerValidation, loginValidation, verifyValidation } = require("../../middlewares/auth");
 const { ctrlUsers } = require("../../controllers");
 const router = express.Router();
 
