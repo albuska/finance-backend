@@ -1,10 +1,10 @@
 const express = require('express');
 const logger = require('morgan')
 const cors = require("cors");
-// const passport = require("passport"); 
-// const session = require('express-session');
+const passport = require("passport"); 
+const session = require('express-session');
 const dotenv = require('dotenv');
-// require("./middlewares/auth/googleAuthenticate.js");
+require("./middlewares/auth/googleAuthenticate.js");
 
 dotenv.config({ path: './.env' }); 
 
@@ -21,15 +21,14 @@ app.use(cors());
 
 app.use(express.json());
 
-// app.use(session({
-//   secret: process.env.COOKIE_SECRET,
-//   resave: false,
-//   saveUninitialized: true,
-//   // cookie: { secure: false }
-// }))
+app.use(session({
+  secret: process.env.COOKIE_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}))
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api", authRouter);
 app.use("/api/transactions", transactionsRouter);
