@@ -35,11 +35,8 @@ const authenticate = async (req, res, next) => {
 
     } catch(e) {
         next(httpError(401, "Not authorized"));
-
     }
 
-
-    
 };
 
 module.exports = authenticate;

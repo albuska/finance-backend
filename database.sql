@@ -6,8 +6,9 @@ CREATE TABLE users(
     token VARCHAR(255),
     balance NUMERIC(10, 2),
     start_balance NUMERIC(10, 2),
-    is_verified BOOLEAN DEFAULT false
-    google_id VARCHAR(255) UNIQUE
+    is_verified BOOLEAN DEFAULT false,
+    google_id VARCHAR(255) UNIQUE,
+    refresh_token VARCHAR(255)
 );
 
 CREATE TABLE transactions (

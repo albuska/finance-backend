@@ -1,6 +1,6 @@
 const express = require("express");
 const passport = require('passport');
-const { authenticate, registerValidation, loginValidation, verifyValidation } = require("../../middlewares/auth");
+const { authenticate, registerValidation, loginValidation, refreshValidation, verifyValidation } = require("../../middlewares/auth");
 const { ctrlUsers } = require("../../controllers");
 const router = express.Router();
 
@@ -24,7 +24,7 @@ router.post("/auth/register", registerValidation, ctrlUsers.register)
 
 router.post("/auth/logout", authenticate, ctrlUsers.logout); 
 
-// router.post("/auth/refresh", ctrlUsers.refresh) 
+router.get("/auth/refresh", refreshValidation, ctrlUsers.refreshTokens); 
 
 // router.get("/current", authenticate, ctrlUsers.getCurrent); 
 

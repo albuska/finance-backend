@@ -4,6 +4,7 @@ const cors = require("cors");
 const passport = require("passport"); 
 const session = require('express-session');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser')
 require("./middlewares/auth/googleAuthenticate.js");
 
 dotenv.config({ path: './.env' }); 
@@ -20,6 +21,8 @@ app.use(logger(formatsLogger));
 app.use(cors());
 
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.use(session({
   secret: process.env.COOKIE_SECRET,
