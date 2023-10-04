@@ -7,10 +7,10 @@ const monthExpenses = async (req, res) => {
 
     const type = 'expense';
 
-    const report = await reportTypeYearMonthDetail(id, type, year, month);
+    const transactions = await reportTypeYearMonthDetail(id, type, year, month);
 
     res.status(200).json({
-        report
+        transactions
     })
 };
 

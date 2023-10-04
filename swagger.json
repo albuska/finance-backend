@@ -361,7 +361,35 @@
                 "tags": ["Expenses"],
                 "summary": "All user's expenses transactions for the selected month",
 
-                "security": [{ "Bearer": [] }],                
+                "security": [{ "Bearer": [] }], 
+                
+                "parameters": 
+                [
+                    
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "required": true,
+                        "description": "Transaction's year in query",
+                        "schema": {
+                            "type": "integer",
+                            "description": "Transaction's year", 
+                            "example": 2023
+                        }                            
+                    },
+                        
+                    {
+                        "name": "month",
+                        "in": "query",
+                        "required": true,
+                        "description": "Transaction's month in query",
+                        "schema": {
+                            "type": "integer",
+                            "description": "Transaction's month", 
+                            "example": 10
+                        }                             
+                    }
+                ],                 
 
                 "responses": {
                     "200": {
@@ -413,7 +441,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                "$ref": "#/components/schemas/GroupedTransactionsByTypeResponse"
+                                "$ref": "#/components/schemas/GroupedTransactionsByMonthResponse"
                                 }
                             }
                         }
@@ -581,7 +609,35 @@
                 "tags": ["Income"],
                 "summary": "All user's expenses transactions for the selected month",
 
-                "security": [{ "Bearer": [] }],                
+                "security": [{ "Bearer": [] }],
+                
+                "parameters": 
+                [
+                    
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "required": true,
+                        "description": "Transaction's year in query",
+                        "schema": {
+                            "type": "integer",
+                            "description": "Transaction's year", 
+                            "example": 2023
+                        }                            
+                    },
+                        
+                    {
+                        "name": "month",
+                        "in": "query",
+                        "required": true,
+                        "description": "Transaction's month in query",
+                        "schema": {
+                            "type": "integer",
+                            "description": "Transaction's month", 
+                            "example": 10
+                        }                             
+                    }
+                ],                 
 
                 "responses": {
                     "200": {
@@ -633,7 +689,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                "$ref": "#/components/schemas/GroupedTransactionsByTypeResponse"
+                                "$ref": "#/components/schemas/GroupedTransactionsByMonthResponse"
                                 }
                             }
                         }
@@ -752,7 +808,7 @@
             }
         },
         
-        "/transactions/": {
+        "/transactions": {
             "post": {
                 "tags": ["Transactions"],
                 "summary": "User can add new transaction",
@@ -999,9 +1055,15 @@
                 "properties": {
                     "start_balance": {
                         "type": "number",
-                        "description": "User's balance",
+                        "description": "User's start balance",
+                        "example": 100.00
+                    },
+
+                    "balance": {
+                        "type": "number",
+                        "description": "User's current balance",
                         "example": 150.45
-                    }
+                    }                    
                 }
             },
             
