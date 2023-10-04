@@ -6,9 +6,9 @@ const logout = async (req, res) => {
 
   const { rows } = await db.query(`
     UPDATE users
-    SET token=NULL
+    SET token=NULL, refresh_token=NULL
     WHERE id=$1
-    RETURNING id, name, email, token`,
+    RETURNING id, name, email, token, refresh_token`,
     [id]
   );
 

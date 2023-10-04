@@ -2,7 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 const db = require("../../db");
 const { ctrlWrapper } = require("../../helpers");
 const { sendEmail } = require("../../services/auth");
-const { createHashPassword, getToken } = require("../../utils")
+const { createHashPassword, getToken } = require("../../utils");
 
 
 const { BASE_URL, FRONT_DEV } = process.env;
@@ -15,16 +15,16 @@ const register = async (req, res) => {
   
   const hashPassword = await createHashPassword(password);
 
-  const verificationToken = await getToken(id);  
+  const {token: verificationToken, refreshToken} = await getToken(id);  
 
   const { rows: newUser } = await db.query(`
-  INSERT INTO users (id, name, email, password, token) 
-  values ($1, $2, $3, $4, $5) 
-  RETURNING id, name, email, password, token, balance`,
-    [id, name, email, hashPassword, verificationToken]
+  INSERT INTO users (id, name, email, password, token, refresh_token) 
+  values ($1, $2, $3, $4, $5, $6) 
+  RETURNING id, name, email, password, token, refresh_token, balance`,
+    [id, name, email, hashPassword, verificationToken, refreshToken]
   );
 
-  const { name: dbName, email: dbEmail, token, balance } = newUser[0];
+  const { name: dbName, email: dbEmail, token, refresh_token, balance } = newUser[0];
 
   const verifyEmail = {
     to: email,
@@ -37,7 +37,9 @@ const register = async (req, res) => {
   </div>`,
   };
 
-  await sendEmail(verifyEmail); 
+  await sendEmail(verifyEmail);
+  
+  res.cookie('refreshToken', refresh_token, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true });
 
   res.status(201).json({
     user: {

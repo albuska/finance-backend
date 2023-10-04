@@ -214,6 +214,43 @@
             }
         },
 
+        "/auth/refresh": {
+            "get": {
+                "tags": ["Auth"],
+                "summary": "Refresh user's token",
+
+                "security": [{ "Bearer": [] }],
+
+                "responses": {
+                    "204": {
+                        "description": "Successful operation"
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },        
+
         "/transactions/balance": {
             "get": {
                 "tags": ["Balance"],
