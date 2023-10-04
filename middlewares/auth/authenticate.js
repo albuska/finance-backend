@@ -19,7 +19,7 @@ const authenticate = async (req, res, next) => {
         if (exp*1000 < Date.now()) next(httpError(401, "Not authorized"));
 
         const { rows } = await db.query(`
-            SELECT id, name, email, token, balance
+            SELECT id, name, email, token, balance, start_balance
             FROM users
             WHERE id=$1`, [id]
         )
