@@ -99,6 +99,75 @@
             }
         },
 
+        "/verify": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Request email verification",
+                "description": "Send a verification email to the user's email address for email confirmation.",
+                "requestBody": {
+                    "description": "Email verification request object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "description": "User's email address"
+                                    }
+                                },
+                                "required": ["email"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Email verification request sent successfully"
+                    },
+                    "400": {
+                        "description": "Bad request (invalid email format or email not found)"
+                    },
+                    "401": {
+                        "description": "Unauthorized (user not authenticated)"
+                    }
+                }
+            }
+        },
+
+
+        "/verify/{verificationToken}": {
+            "get": {
+                "summary": "Verify email with verification token",
+                "description": "Verify a user's email using a verification token.",
+                "tags": ["Auth"],
+                "parameters": [
+                    {
+                        "name": "verificationToken",
+                        "in": "path",
+                        "required": true,
+                        "description": "The verification token received via email",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Email verification successful"
+                    },
+                    "400": {
+                        "description": "Bad request (invalid token)"
+                    },
+                    "404": {
+                        "description": "Token not found"
+                    }
+                }
+            }
+        },
+
+
         "/auth/login": {
             "post": {
                 "tags": ["Auth"],
