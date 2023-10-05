@@ -221,9 +221,29 @@
 
                 "security": [{ "Bearer": [] }],
 
+                "parameters": [
+                    {
+                        "name": "refreshToken",
+                        "in": "cookie",
+                        "description": "Refresh token from cookie",
+                        "required": true,
+                        "schema": {
+                        "type": "string",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTQ0NjhlMDNjc3E3OTZhZDk3N2Q1YiJ9.Yh8Xgp-e6DL8-23gfFEUaJK6G19qahZPlsrYkLrDccs"
+                        }
+                    }
+                ],                
+
                 "responses": {
-                    "204": {
-                        "description": "Successful operation"
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/RefreshResponse"
+                                }
+                            }
+                        }
                     },
 
                     "400": {
@@ -1030,6 +1050,17 @@
                     }
                 }
             },
+
+            "RefreshResponse": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "description": "User's access token",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTQ0NjhlMDNjc3E3OTZhZDk3N2Q1YiJ9.Yh8Xgp-e6DL8-23gfFEUaJK6G19qahZPlsrYkLrDccs"
+                    }
+                }
+            },            
             
             "BalanceResponse": {
                 "type": "object",
