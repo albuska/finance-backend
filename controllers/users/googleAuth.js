@@ -7,7 +7,7 @@ exports.googleAuth = catchAsync(async (req, res) => {
   const { id } = req.user;
   const { token, refreshToken } = await getToken(id);
 
-  let URL = process.env.NODE_ENV === "development" ? FRONTEND_URL :  FRONT_PROD;
+  // let URL = process.env.NODE_ENV === "development" ? FRONTEND_URL :  FRONT_PROD;
 
 
   await db.query("UPDATE users SET token=$1, refresh_token=$2 WHERE id=$3", [
@@ -22,9 +22,9 @@ exports.googleAuth = catchAsync(async (req, res) => {
   //   secure: true,
   // });
 
-  res.redirect(`${URL}?token=${token}`);
+  // res.redirect(`${URL}?token=${token}`);
 
-  // res.redirect(`${FRONT_PROD}?token=${token}`);
+  res.redirect(`${FRONT_PROD}?token=${token}`);
 
   // res.redirect(`${FRONTEND_URL}?token=${token}`);
 });
