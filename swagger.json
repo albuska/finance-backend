@@ -247,7 +247,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref":"#/components/schemas/LogoutRequest"
+                                "$ref":"#/components/schemas/RequestByToken"
                             }
                         }
                     }
@@ -310,6 +310,62 @@
                             "application/json": {
                                 "schema": {
                                 "$ref": "#/components/schemas/RefreshResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                }
+            }
+        },
+        
+        "/current": {
+            "get": {
+                "tags": ["Auth"],
+                "summary": "Current user by token",
+
+                "security": [{ "Bearer": [] }],
+                
+                "requestBody": {
+                    "description": "Current user's object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref":"#/components/schemas/RequestByToken"
+                            }
+                        }
+                    }
+                },
+
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegistrationResponse"
                                 }
                             }
                         }
@@ -1164,7 +1220,7 @@
                 }
             },
 
-            "LogoutRequest": {
+            "RequestByToken": {
                 "type": "object",
                 "required": ["token"],
                 "properties": {

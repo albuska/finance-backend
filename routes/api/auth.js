@@ -25,7 +25,7 @@ router.post("/auth/logout", authenticate, ctrlUsers.logout);
 
 router.get("/auth/refresh", refreshValidation, ctrlUsers.refreshTokens); 
 
-// router.get("/current", authenticate, ctrlUsers.getCurrent); 
+router.get("/current", authenticate, ctrlUsers.getCurrent); 
 
 // router.patch(
 //   "/:id/subscription",
