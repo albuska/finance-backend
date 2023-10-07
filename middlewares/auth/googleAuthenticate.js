@@ -6,6 +6,7 @@ const { Strategy } = require('passport-google-oauth2');
 require("dotenv").config(); 
 const db = require("../../db");
 const { httpError } = require("../../helpers");
+const { getToken } = require("../../utils");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FRONT_DEV, BASE_URL } = process.env;
 
