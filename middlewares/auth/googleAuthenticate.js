@@ -7,6 +7,7 @@ const {Strategy: GoogleStrategy} = require('passport-google-oauth2');
 require("dotenv").config(); 
 const db = require("../../db");
 const { httpError } = require('../../helpers');
+const { getToken } = require("../../utils");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
@@ -78,13 +79,23 @@ passport.use(new GoogleStrategy({
     const existingUserQuery = await db.query('SELECT * FROM users WHERE google_id=$1', [account.sub]);
 
     if (existingUserQuery.rows.length > 0) {
-      return done(httpError(409, "User already exists"));
+      console.log("existingUserQuery", existingUserQuery);
+      const { token, refreshToken } = await getToken(existingUserQuery.rows[0].id);
+      // return done(httpError(409, "User already exists"));
+      res.redirect(
+        `https://nmarkhotsky.github.io/finance-front/finance-front/?token=${token}`
+      );
     }
 
     const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
 
     if (existingEmailQuery.rows.length > 0) {
-      return done(httpError(409, "Email in use"));
+      console.log("existingEmailQuery", existingEmailQuery);
+      const { token, refreshToken } = await getToken(existingEmailQuery.rows[0].id);
+      res.redirect(
+        `https://nmarkhotsky.github.io/finance-front/finance-front/?token=${token}`
+      );
+      // return done(httpError(409, "Email in use"));
     }
 
     const idUser = uuidv4();
