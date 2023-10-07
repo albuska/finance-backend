@@ -4,12 +4,12 @@ const { ctrlUsers } = require("../../controllers");
 const router = express.Router();
 
 router.get(
-    '/auth/google',
+    '/google',
     passport.authenticate('google', {scope: ['email', 'profile']})
   );
 
   router.get(
-    '/auth/google/callback',
+    '/google/callback',
     passport.authenticate('google',  { session: false }), ctrlUsers.googleAuth
   ); 
 
