@@ -11,8 +11,8 @@ const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FRONT_DEV } = process.env;
 const googleParams = {
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: `https://finance-backend-eight.vercel.app/auth/google/callback`,
-  // callbackURL: `${FRONT_DEV}/auth/google/callback`,
+  // callbackURL: `https://finance-backend-eight.vercel.app/auth/google/callback`,
+  callbackURL: `${FRONT_DEV}/auth/google/callback`,
   passReqToCallback: true,
 };
 
