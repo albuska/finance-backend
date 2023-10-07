@@ -18,6 +18,6 @@ exports.googleAuth = catchAsync(async (req, res) => {
   });
 
   res.redirect(
-    `https://nmarkhotsky.github.io/finance-front/finance-front/?token=${token}`
+    `https://nmarkhotsky.github.io/finance-front/?token=${token}`
   );
 });
