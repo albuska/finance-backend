@@ -1,6 +1,8 @@
 const { catchAsync, getToken } = require("../../utils");
 const db = require("../../db");
 
+const { FRONTEND_URL } = process.env;
+
 exports.googleAuth = catchAsync(async (req, res) => {
   const { id } = req.user;
   const { token, refreshToken } = await getToken(id);
@@ -18,7 +20,7 @@ exports.googleAuth = catchAsync(async (req, res) => {
   });
 
   res.redirect(
-    `https://nmarkhotsky.github.io/finance-front/?token=${token}`
-    // `http://localhost:3001/finance-front/?token=${token}`
+    // `https://nmarkhotsky.github.io/finance-front/?token=${token}`
+    `${FRONTEND_URL}?token=${token}`
   );
 });
