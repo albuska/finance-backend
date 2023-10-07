@@ -11,7 +11,7 @@ exports.googleAuth = catchAsync(async (req, res) => {
     id,
   ]);
 
-  res.cookie("refreshToken", refresh_token, {
+  res.cookie("refreshToken", refreshToken, {
     maxAge: 30 * 24 * 60 * 60 * 1000,
     httpOnly: true,
     secure: true,
