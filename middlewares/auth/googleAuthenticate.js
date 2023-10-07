@@ -26,11 +26,18 @@ const googleCallback = async (
 ) => {
   const account = profile._json;
   try {
+    const existingUserQuery = await db.query('SELECT * FROM users WHERE google_id=$1', [account.sub]);
+
+    if (existingUserQuery.rows.length > 0) {
+      // Ви можете повернути помилку або зробити щось інше, якщо користувач вже існує
+      return done(httpError(409, "User already exists"));
+    }
+    
     const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
 
     if (existingEmailQuery.rows.length > 0) {
-      return done(null, existingEmailQuery.rows);
-      // return done(httpError(409, "Email in use"));
+      // return done(null, existingEmailQuery.rows);
+      return done(httpError(409, "Email in use"));
     }
 
     const idUser = uuidv4();
