@@ -6,8 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 const { Strategy } = require('passport-google-oauth2'); 
 require("dotenv").config(); 
 const db = require("../../db");
-const { httpError } = require('../../helpers');
-// const { getToken } = require("../../utils");
+// const { httpError } = require('../../helpers');
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
@@ -27,12 +26,12 @@ const googleCallback = async (
 ) => {
   const account = profile._json;
   try {
-        const existingUserQuery = await db.query('SELECT * FROM users WHERE google_id=$1', [account.sub]);
+        // const existingUserQuery = await db.query('SELECT * FROM users WHERE google_id=$1', [account.sub]);
 
-    if (existingUserQuery.rows.length > 0) {
-      return done(null, user);
-      // return done(httpError(409, "User already exists"));
-    }
+    // if (existingUserQuery.rows.length > 0) {
+    //   return done(null, user);
+    //   // return done(httpError(409, "User already exists"));
+    // }
 
     const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
 
