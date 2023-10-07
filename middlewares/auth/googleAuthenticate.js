@@ -36,7 +36,7 @@ const googleCallback = async (
     const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
 
     if (existingEmailQuery.rows.length > 0) {
-      return done(null, user);
+      return done(null, existingEmailQuery.rows);
       // return done(httpError(409, "Email in use"));
     }
 
