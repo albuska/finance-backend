@@ -11,9 +11,9 @@ router.get(
   router.get(
     '/auth/google/callback',
     passport.authenticate('google',  { session: false }), ctrlUsers.googleAuth,
-    function (req, res) {
-      res.redirect('/auth/login'); 
-  }
+  //   function (req, res) {
+  //     res.redirect('/auth/login'); 
+  // }
   ); 
 
 router.get("/verify/:verificationToken", ctrlUsers.verifyEmail);
