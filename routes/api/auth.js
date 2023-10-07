@@ -1,5 +1,4 @@
 const express = require("express");
-// const passport = require('passport');
 const { authenticate, registerValidation, loginValidation, refreshValidation, verifyValidation, passport } = require("../../middlewares/auth");
 const { ctrlUsers } = require("../../controllers");
 const router = express.Router();
