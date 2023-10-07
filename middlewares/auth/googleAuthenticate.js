@@ -30,13 +30,15 @@ const googleCallback = async (
         const existingUserQuery = await db.query('SELECT * FROM users WHERE google_id=$1', [account.sub]);
 
     if (existingUserQuery.rows.length > 0) {
-      return done(httpError(409, "User already exists"));
+      return done(null, user);
+      // return done(httpError(409, "User already exists"));
     }
 
     const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
 
     if (existingEmailQuery.rows.length > 0) {
-      return done(httpError(409, "Email in use"));
+      return done(null, user);
+      // return done(httpError(409, "Email in use"));
     }
 
     const idUser = uuidv4();
@@ -110,10 +112,10 @@ module.exports = passport;
 //   }
 // }));
 
-passport.serializeUser((user, done) => {
-  done(null, user); 
-});
+// passport.serializeUser((user, done) => {
+//   done(null, user); 
+// });
 
-passport.deserializeUser((user, done) => {
-  done(null, user);
-})
+// passport.deserializeUser((user, done) => {
+//   done(null, user);
+// })
