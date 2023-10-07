@@ -79,22 +79,24 @@ passport.use(new GoogleStrategy({
     const existingUserQuery = await db.query('SELECT * FROM users WHERE google_id=$1', [account.sub]);
 
     if (existingUserQuery.rows.length > 0) {
-      console.log("existingUserQuery", existingUserQuery);
-      const { token, refreshToken } = await getToken(existingUserQuery.rows[0].id);
-      // return done(httpError(409, "User already exists"));
-      res.redirect(
-        `https://nmarkhotsky.github.io/finance-front/finance-front/?token=${token}`
-      );
+      // console.log("existingUserQuery", existingUserQuery);
+      // const { token, refreshToken } = await getToken(existingUserQuery.rows[0].id);
+      // // return done(httpError(409, "User already exists"));
+      // res.redirect(
+      //   `https://nmarkhotsky.github.io/finance-front/finance-front/?token=${token}`
+      // );
+      return done(null, user);
     }
 
     const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
 
     if (existingEmailQuery.rows.length > 0) {
-      console.log("existingEmailQuery", existingEmailQuery);
-      const { token, refreshToken } = await getToken(existingEmailQuery.rows[0].id);
-      res.redirect(
-        `https://nmarkhotsky.github.io/finance-front/finance-front/?token=${token}`
-      );
+      return done(null, user);
+      // console.log("existingEmailQuery", existingEmailQuery);
+      // const { token, refreshToken } = await getToken(existingEmailQuery.rows[0].id);
+      // res.redirect(
+      //   `https://nmarkhotsky.github.io/finance-front/finance-front/?token=${token}`
+      // );
       // return done(httpError(409, "Email in use"));
     }
 
