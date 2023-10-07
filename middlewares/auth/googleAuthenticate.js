@@ -6,13 +6,13 @@ const { Strategy } = require('passport-google-oauth2');
 require("dotenv").config(); 
 const db = require("../../db");
 
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FRONT_DEV } = process.env;
 
 const googleParams = {
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: `https://finance-backend-eight.vercel.app/api/auth/google/callback`,
-  // callbackURL: `http://localhost:3000/api/auth/google/callback`,
+  // callbackURL: `https://finance-backend-eight.vercel.app/api/auth/google/callback`,
+  callbackURL: `${FRONT_DEV}/api/auth/google/callback`,
   passReqToCallback: true,
 };
 
