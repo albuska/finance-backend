@@ -10,11 +10,13 @@ const { getToken } = require("../../utils");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FRONT_DEV, BASE_URL } = process.env;
 
+let URL = process.env.NODE_ENV === "development" ? FRONT_DEV :  BASE_URL;
+
 const googleParams = {
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
   // callbackURL: `https://finance-backend-eight.vercel.app/api/auth/google/callback`,
-  callbackURL: `${BASE_URL}/api/auth/google/callback`,
+  callbackURL: `${URL}/api/auth/google/callback`,
   // callbackURL: `${FRONT_DEV}/api/auth/google/callback`,
   passReqToCallback: true,
 };
@@ -44,12 +46,12 @@ const googleCallback = async (
 
     const idUser = uuidv4();
     const password = await bcrypt.hash(uuidv4(), 10);
-    const {token: verificationToken, refreshToken} = await getToken(idUser);  
+    // const {token: verificationToken, refreshToken} = await getToken(idUser);  
 
     await db.query(`
-      INSERT INTO users (id, name, email, google_id, password, token, refresh_token) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-      [idUser, account.name, account.email, account.sub, password, verificationToken, refreshToken]
+      INSERT INTO users (id, name, email, google_id, password) 
+      VALUES ($1, $2, $3, $4, $5)`,
+      [idUser, account.name, account.email, account.sub, password]
     );
 
     user = {
