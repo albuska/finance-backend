@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 const { Strategy } = require('passport-google-oauth2'); 
 require("dotenv").config(); 
 const db = require("../../db");
+const { httpError } = require("../../helpers");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FRONT_DEV, BASE_URL } = process.env;
 
@@ -32,7 +33,7 @@ const googleCallback = async (
       // Ви можете повернути помилку або зробити щось інше, якщо користувач вже існує
       return done(httpError(409, "User already exists"));
     }
-    
+
     const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
 
     if (existingEmailQuery.rows.length > 0) {
