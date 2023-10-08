@@ -10,7 +10,7 @@ const { getToken } = require("../../utils");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FRONT_DEV, BASE_URL } = process.env;
 
-let URL = process.env.NODE_ENV === "development" ? FRONT_DEV :  BASE_URL;
+// let URL = process.env.NODE_ENV === "development" ? FRONT_DEV :  BASE_URL;
 
 const googleParams = {
   clientID: GOOGLE_CLIENT_ID,
