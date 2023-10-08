@@ -25,7 +25,7 @@ exports.googleAuth = catchAsync(async (req, res) => {
 
   // res.redirect(`${URL}?token=${token}`);
 
-  res.redirect(`${FRONT_PROD}/finance-front/?token=${token}`);
+  res.redirect(`https://nmarkhotsky.github.io/finance-front?token=${token}`);
 
   // res.redirect(`${FRONTEND_URL}?token=${token}`);
 });
