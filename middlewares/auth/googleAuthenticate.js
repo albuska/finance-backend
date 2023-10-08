@@ -6,7 +6,6 @@ const { Strategy } = require('passport-google-oauth2');
 require("dotenv").config(); 
 const db = require("../../db");
 const { httpError } = require("../../helpers");
-const { getToken } = require("../../utils");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FRONT_DEV, BASE_URL } = process.env;
 
@@ -46,7 +45,6 @@ const googleCallback = async (
 
     const idUser = uuidv4();
     const password = await bcrypt.hash(uuidv4(), 10);
-    // const {token: verificationToken, refreshToken} = await getToken(idUser);  
 
     await db.query(`
       INSERT INTO users (id, name, email, google_id, password) 
@@ -74,10 +72,10 @@ passport.use('google', googleStrategy);
 module.exports = passport;
 
 
-// passport.serializeUser((user, done) => {
-//   done(null, user); 
-// });
+passport.serializeUser((user, done) => {
+  done(null, user); 
+});
 
-// passport.deserializeUser((user, done) => {
-//   done(null, user);
-// })
+passport.deserializeUser((user, done) => {
+  done(null, user);
+})
