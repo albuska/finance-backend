@@ -6,7 +6,7 @@ const { FRONTEND_URL, FRONT_PROD } = process.env;
 exports.googleAuth = catchAsync(async (req, res) => {
   const { id } = req.user;
   console.log("id", id);
-  const { token, redirect } = await getToken(id);
+  const { token, refreshToken } = await getToken(id);
 
   // let URL = process.env.NODE_ENV === "development" ? FRONTEND_URL :  FRONT_PROD;
 
