@@ -47,8 +47,8 @@ const googleCallback = async (
     const password = await bcrypt.hash(uuidv4(), 10);
 
     await db.query(`
-      INSERT INTO users (id, name, email, google_id, password, is_verified=true) 
-      VALUES ($1, $2, $3, $4, $5, $6)`,
+      INSERT INTO users (id, name, email, google_id, password, is_verified) 
+      VALUES ($1, $2, $3, $4, $5, true)`,
       [idUser, account.name, account.email, account.sub, password]
     );
 
