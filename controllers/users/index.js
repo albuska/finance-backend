@@ -5,6 +5,7 @@ const { verifyEmail } = require("./verifyEmail.js");
 const { resendVerifyEmail } = require("./resendVerifyEmail");
 const { googleAuth } = require('./googleAuth');
 const { refreshTokens } = require("./refreshTokens");
+const { getCurrent } = require("./getCurrent");
 
 module.exports = {
   register,
@@ -13,5 +14,6 @@ module.exports = {
   verifyEmail,
   resendVerifyEmail,
   googleAuth,
-  refreshTokens
+  refreshTokens,
+  getCurrent
 };
