@@ -48,7 +48,7 @@ const googleCallback = async (
 
     await db.query(`
       INSERT INTO users (id, name, email, google_id, password, is_verified = true) 
-      VALUES ($1, $2, $3, $4, $5)`,
+      VALUES ($1, $2, $3, $4, $5, $6)`,
       [idUser, account.name, account.email, account.sub, password]
     );
 
