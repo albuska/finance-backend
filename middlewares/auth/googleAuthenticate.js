@@ -33,15 +33,15 @@ const googleCallback = async (
 
     if (existingUserQuery.rows.length > 0) {
       // Ви можете повернути помилку або зробити щось інше, якщо користувач вже існує
-      return done(httpError(409, "User already exists"));
-      // return done(null, existingUserQuery.rows);
+      // return done(httpError(409, "User already exists"));
+      return done(null, existingUserQuery.rows);
     }
 
     const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
 
     if (existingEmailQuery.rows.length > 0) {
-      return done(null, existingEmailQuery.rows);
-      // return done(httpError(409, "Email in use"));
+      // return done(null, existingEmailQuery.rows);
+      return done(httpError(409, "Email in use"));
     }
 
     const idUser = uuidv4();
@@ -74,10 +74,10 @@ passport.use('google', googleStrategy);
 module.exports = passport;
 
 
-passport.serializeUser((user, done) => {
-  done(null, user); 
-});
+// passport.serializeUser((user, done) => {
+//   done(null, user); 
+// });
 
-passport.deserializeUser((user, done) => {
-  done(null, user);
-})
+// passport.deserializeUser((user, done) => {
+//   done(null, user);
+// })
