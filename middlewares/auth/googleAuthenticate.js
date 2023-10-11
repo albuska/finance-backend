@@ -32,36 +32,34 @@ const googleCallback = async (
     const existingUserQuery = await db.query('SELECT * FROM users WHERE google_id=$1', [account.sub]);
 
     if (existingUserQuery.rows.length > 0) {
-      // Ви можете повернути помилку або зробити щось інше, якщо користувач вже існує
-      // return done(httpError(409, "User already exists"));
-      return done(null, existingUserQuery.rows);
+      done(null, existingUserQuery.rows[0]);
+      
+    } else {
+
+      // const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
+
+      // if (existingEmailQuery.rows.length > 0) {
+      //   return done(httpError(409, "Email in use"));
+      // }
+      const idUser = uuidv4();
+      const password = await bcrypt.hash(uuidv4(), 10);
+
+      await db.query(`
+        INSERT INTO users (id, name, email, google_id, password, is_verified) 
+        VALUES ($1, $2, $3, $4, $5, true)
+        RETURNING id, name, email`,
+        [idUser, account.name, account.email, account.sub, password]
+      );
+
+      const user = {
+        id: idUser,
+        name: account.name,
+        email: account.email,
+        password,
+      };
+
+      done(null, user);
     }
-
-    const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
-
-    if (existingEmailQuery.rows.length > 0) {
-      // return done(null, existingEmailQuery.rows);
-      return done(httpError(409, "Email in use"));
-    }
-
-    const idUser = uuidv4();
-    const password = await bcrypt.hash(uuidv4(), 10);
-
-    await db.query(`
-      INSERT INTO users (id, name, email, google_id, password, is_verified) 
-      VALUES ($1, $2, $3, $4, $5, true)
-      RETURNING id, name, email`,
-      [idUser, account.name, account.email, account.sub, password]
-    );
-
-    user = {
-      id: idUser,
-      name: account.name,
-      email: account.email,
-      password,
-    };
-
-    done(null, user);
   } catch (e) {
     done(e, false);
   }
