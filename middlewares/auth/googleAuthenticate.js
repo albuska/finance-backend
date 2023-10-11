@@ -5,7 +5,6 @@ const { v4: uuidv4 } = require("uuid");
 const { Strategy } = require('passport-google-oauth2'); 
 require("dotenv").config(); 
 const db = require("../../db");
-const { httpError } = require("../../helpers");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FRONT_DEV, BASE_URL } = process.env;
 
@@ -15,8 +14,6 @@ const googleParams = {
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
   callbackURL: `https://finance-backend-eight.vercel.app/api/auth/google/callback`,
-  // callbackURL: `${URL}/api/auth/google/callback`,
-  // callbackURL: `${FRONT_DEV}/api/auth/google/callback`,
   passReqToCallback: true,
 };
 
@@ -33,7 +30,7 @@ const googleCallback = async (
 
     if (existingUserQuery.rows.length > 0) {
       done(null, existingUserQuery.rows[0]);
-      
+
     } else {
 
       // const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
@@ -41,6 +38,7 @@ const googleCallback = async (
       // if (existingEmailQuery.rows.length > 0) {
       //   return done(httpError(409, "Email in use"));
       // }
+
       const idUser = uuidv4();
       const password = await bcrypt.hash(uuidv4(), 10);
 
@@ -71,11 +69,3 @@ passport.use('google', googleStrategy);
 
 module.exports = passport;
 
-
-// passport.serializeUser((user, done) => {
-//   done(null, user); 
-// });
-
-// passport.deserializeUser((user, done) => {
-//   done(null, user);
-// })
