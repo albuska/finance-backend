@@ -33,7 +33,8 @@ const googleCallback = async (
 
     if (existingUserQuery.rows.length > 0) {
       // Ви можете повернути помилку або зробити щось інше, якщо користувач вже існує
-      return done(httpError(409, "User already exists"));
+      // return done(httpError(409, "User already exists"));
+      return done(null, existingUserQuery.rows);
     }
 
     const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
