@@ -8,12 +8,12 @@ const db = require("../../db");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FRONT_DEV, BASE_URL } = process.env;
 
-let URL = process.env.NODE_ENV === "development" ? FRONT_DEV :  BASE_URL;
+// let URL = process.env.NODE_ENV === "development" ? FRONT_DEV :  BASE_URL;
 
 const googleParams = {
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: `${URL}/api/auth/google/callback`,
+  callbackURL: `https://finance-backend-eight.vercel.app/api/auth/google/callback`,
   passReqToCallback: true,
 };
 
@@ -33,11 +33,11 @@ const googleCallback = async (
 
     } else {
 
-      const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
+      // const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
 
-      if (existingEmailQuery.rows.length > 0) {
-        return done(httpError(409, "Email in use"));
-      }
+      // if (existingEmailQuery.rows.length > 0) {
+      //   return done(httpError(409, "Email in use"));
+      // }
 
       const idUser = uuidv4();
       const password = await bcrypt.hash(uuidv4(), 10);
