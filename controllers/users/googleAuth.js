@@ -8,7 +8,7 @@ exports.googleAuth = catchAsync(async (req, res) => {
   console.log("id", id);
   const { token, refreshToken } = await getToken(id);
 
-  // let URL = process.env.NODE_ENV === "development" ? FRONTEND_URL :  FRONT_PROD;
+  let URL = process.env.NODE_ENV === "development" ? FRONTEND_URL :  FRONT_PROD;
 
 
   await db.query("UPDATE users SET token=$1, refresh_token=$2 WHERE id=$3", [
@@ -24,6 +24,6 @@ exports.googleAuth = catchAsync(async (req, res) => {
   });
 
 
-  res.redirect(`https://nmarkhotsky.github.io/finance-front?token=${token}`);
+  res.redirect(`${URL}?token=${token}`);
 
 });
