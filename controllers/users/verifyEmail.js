@@ -12,9 +12,10 @@ const verifyEmail = async (req, res) => {
 
             await db.query('UPDATE users SET is_verified = true, token = $1 WHERE id = $2', ["", user.rows[0].id]);
 
-        res.json({
-            message: "Verification successful",
-        });
+        // res.json({
+        //     message: "Verification successful",
+        // });
+        res.redirect(`https://nmarkhotsky.github.io/finance-front?token=${verificationToken}`);
 
 };
 
