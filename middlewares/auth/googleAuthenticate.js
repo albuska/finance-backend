@@ -33,11 +33,11 @@ const googleCallback = async (
 
     } else {
 
-      // const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
+      const existingEmailQuery = await db.query('SELECT * FROM users WHERE email=$1', [account.email]);
 
-      // if (existingEmailQuery.rows.length > 0) {
-      //   return done(httpError(409, "Email in use"));
-      // }
+      if (existingEmailQuery.rows.length > 0) {
+        return done(httpError(409, "Email in use"));
+      }
 
       const idUser = uuidv4();
       const password = await bcrypt.hash(uuidv4(), 10);
