@@ -13,7 +13,7 @@ const reportCurrentMonthDescription = async (id, type) => {
             CURRENT_DATE) AND DATE_TRUNC('month',
             CURRENT_DATE) + INTERVAL '1 month' - INTERVAL '1 day'
         GROUP BY description
-        ORDER BY total_sum`,
+        ORDER BY total_sum DESC`,
             [id, type]);
     
     return rows;
