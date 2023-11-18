@@ -703,7 +703,23 @@
                 "tags": ["Expenses"],
                 "summary": "All user's expenses transactions are grouped into description (description/sum)",
 
-                "security": [{ "Bearer": [] }],                
+                "security": [{ "Bearer": [] }],
+                
+                "parameters": 
+                [
+                    
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "required": true,
+                        "description": "Chosen category for report",
+                        "schema": {
+                            "type": "string",
+                            "description": "Chosen category for report", 
+                            "example": "Products"
+                        }                            
+                    }
+                ],                                
 
                 "responses": {
                     "200": {
@@ -951,7 +967,23 @@
                 "tags": ["Income"],
                 "summary": "All user's expenses transactions are grouped into description (description/sum)",
 
-                "security": [{ "Bearer": [] }],                
+                "security": [{ "Bearer": [] }], 
+                
+                "parameters": 
+                [
+                    
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "required": true,
+                        "description": "Chosen category for report",
+                        "schema": {
+                            "type": "string",
+                            "description": "Chosen category for report", 
+                            "example": "Products"
+                        }                            
+                    }
+                ],                
 
                 "responses": {
                     "200": {
@@ -1361,7 +1393,7 @@
                         }
                     }
                 }
-            },
+            },           
             
             "GroupedTransactionsByDescriptionResponse": {
                 "type": "object",

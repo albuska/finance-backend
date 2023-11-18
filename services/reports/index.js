@@ -2,11 +2,15 @@ const reportTypeMonthSum = require("../reports/reportTypeMonthSum");
 const reportTypeYearMonthDetail = require("./reportTypeYearMonthDetail");
 const reportCurrentMonthCategory = require("./reportCurrentMonthCategory");
 const reportCurrentMonthDescription = require("./reportCurrentMonthDescription");
+const categoryDataValidation = require("./categoryDataValidation")
+const getTypeTransaction = require("./getTypeTransaction")
 
 
 module.exports = {
     reportTypeMonthSum,
     reportTypeYearMonthDetail,
     reportCurrentMonthCategory,
-    reportCurrentMonthDescription
+    reportCurrentMonthDescription,
+    categoryDataValidation,
+    getTypeTransaction
 }
