@@ -1,6 +1,6 @@
 const db = require("../../db");
 
-const reportCurrentMonthCategory = async (id, type) => {
+const reportCategoryPeriod = async (id, type, year, month) => {
     const { rows } = await db.query(`
         SELECT
             category, SUM(sum) as total_sum
@@ -9,15 +9,14 @@ const reportCurrentMonthCategory = async (id, type) => {
         WHERE  
             fk_user_id = $1
             AND "type" = $2
-            AND "date" BETWEEN DATE_TRUNC('month',
-            CURRENT_DATE) AND DATE_TRUNC('month',
-            CURRENT_DATE) + INTERVAL '1 month' - INTERVAL '1 day'
+            AND  date_part('year', "date") = $3 
+            AND  date_part('month', "date") = $4
         GROUP BY category
         ORDER BY total_sum DESC`,
-            [id, type]);
+            [id, type, year, month]);
     
     return rows;
     
 };
 
-module.exports = reportCurrentMonthCategory;
+module.exports = reportCategoryPeriod;
