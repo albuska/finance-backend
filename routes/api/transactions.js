@@ -4,6 +4,7 @@ const { balanceValidation } = require("../../middlewares/balance");
 const { addTransactionValidation, categoryValidation } = require("../../middlewares/transactions");
 
 const { ctrlBalance, ctrlIncome, ctrlExpenses, ctrlTransaction } = require("../../controllers");
+const { ctrlWrapper } = require("../../helpers");
 
 const router = express.Router();
 
@@ -25,9 +26,9 @@ router.get("/income/summary", authenticate, ctrlIncome.summaryIncome);
 router.get("/income/category", authenticate, ctrlIncome.currentMonthCategoryIncome);
 router.get("/income/description", authenticate, categoryValidation, ctrlIncome.currentMonthDescIncome);
 
-// transaction
+// transactions
+router.get("/", authenticate, ctrlTransaction.getAllTransactions);
 router.post("/", authenticate, addTransactionValidation, ctrlTransaction.postTransaction); 
 router.delete("/:id", authenticate, ctrlTransaction.deleteTransaction);
-
 
 module.exports = router; 
