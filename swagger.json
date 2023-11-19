@@ -136,7 +136,6 @@
             }
         },
 
-
         "/verify/{verificationToken}": {
             "get": {
                 "summary": "Verify email with verification token",
@@ -166,7 +165,6 @@
                 }
             }
         },
-
 
         "/auth/login": {
             "post": {
@@ -970,20 +968,20 @@
                 "security": [{ "Bearer": [] }], 
                 
                 "parameters": 
-                [
-                    
-                    {
-                        "name": "category",
-                        "in": "query",
-                        "required": true,
-                        "description": "Chosen category for report",
-                        "schema": {
-                            "type": "string",
-                            "description": "Chosen category for report", 
-                            "example": "Products"
-                        }                            
-                    }
-                ],                
+                    [
+                        
+                        {
+                            "name": "category",
+                            "in": "query",
+                            "required": true,
+                            "description": "Chosen category for report",
+                            "schema": {
+                                "type": "string",
+                                "description": "Chosen category for report", 
+                                "example": "Products"
+                            }                            
+                        }
+                    ],                
 
                 "responses": {
                     "200": {
@@ -1023,6 +1021,76 @@
         },
         
         "/transactions": {
+            "get": {
+                "tags": ["Transactions"],
+                "summary": "User get's all types of transactions with period optional",
+
+                "security": [{ "Bearer": [] }],
+
+                "parameters": 
+                    [
+                        {
+                            "name": "year",
+                            "in": "query",
+                            "required": false,
+                            "description": "Choose year for report",
+                            "schema": {
+                                "type": "string",
+                                "description": "Chosen year for report", 
+                                "example": "2023"
+                            }                            
+                        },
+
+                        {
+                            "name": "month",
+                            "in": "query",
+                            "required": false,
+                            "description": "Choose month for report",
+                            "schema": {
+                                "type": "string",
+                                "description": "Chosen month for report", 
+                                "example": "11"
+                            }                            
+                        }                        
+                    ],
+                    
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/AllTypesOfTransactionsResponse"
+                                }
+                            }
+                        }
+                    },
+
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                "$ref": "#/components/schemas/BadRequestError"
+                                }
+                            }
+                        }
+                    },
+                    
+                    "401": {
+                        "description": "User is not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedError"
+                                }
+                            }
+                        }
+                    }                
+                } 
+
+            },
+
             "post": {
                 "tags": ["Transactions"],
                 "summary": "User can add new transaction",
@@ -1420,6 +1488,22 @@
                     }
                 }
             },
+
+            "AllTypesOfTransactionsResponse": {
+                "type": "object",
+                "properties": {
+                    "transactions": {
+                        "type": "array",
+                        "description": "An array of transactions",
+                        "items": {
+                            "transaction": {
+                                "$ref": "#/components/schemas/Transaction",
+                                "description": "Transaction's details"
+                            }
+                        }
+                    }
+                }
+            },            
             
             "AddTransactionRequest": {
                 "type": "object",
