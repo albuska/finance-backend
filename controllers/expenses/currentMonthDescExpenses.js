@@ -1,12 +1,15 @@
 const { ctrlWrapper } = require("../../helpers"); 
-const { reportCurrentMonthDescription } = require("../../services/reports");
+const { reportCurrentMonthDescription, reportDescriptionPeriod } = require("../../services/reports");
 
 const currentMonthDescExpenses = async (req, res) => {
     const { id } = req.user;
     const { type, category } = req.data;
+    const { year, month } = req.query;
 
-    const report = await reportCurrentMonthDescription(id, type, category);
-    
+    let report;
+
+    !year || !month ? report = await reportCurrentMonthDescription(id, type, category) : report = await reportDescriptionPeriod(id, type, category, year, month);
+
     res.status(200).json({
         report
     })

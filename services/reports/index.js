@@ -5,6 +5,8 @@ const reportCurrentMonthDescription = require("./reportCurrentMonthDescription")
 const categoryDataValidation = require("./categoryDataValidation");
 const getTypeTransaction = require("./getTypeTransaction");
 const getAllTypesTransactions = require("./getAllTypesTransactions");
+const reportCategoryPeriod = require("./reportCategoryPeriod");
+const reportDescriptionPeriod = require("./reportDescriptionPeriod");
 
 
 module.exports = {
@@ -14,5 +16,7 @@ module.exports = {
     reportCurrentMonthDescription,
     categoryDataValidation,
     getTypeTransaction,
-    getAllTypesTransactions
+    getAllTypesTransactions,
+    reportCategoryPeriod,
+    reportDescriptionPeriod
 }

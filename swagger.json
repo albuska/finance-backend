@@ -657,7 +657,34 @@
                 "tags": ["Expenses"],
                 "summary": "All user's expenses transactions are grouped into categories (category/sum)",
 
-                "security": [{ "Bearer": [] }],                
+                "security": [{ "Bearer": [] }],    
+                
+                "parameters": 
+                    [
+                        {
+                            "name": "year",
+                            "in": "query",
+                            "required": false,
+                            "description": "Choose year for report",
+                            "schema": {
+                                "type": "string",
+                                "description": "Chosen year for report", 
+                                "example": "2023"
+                            }                            
+                        },
+
+                        {
+                            "name": "month",
+                            "in": "query",
+                            "required": false,
+                            "description": "Choose month for report",
+                            "schema": {
+                                "type": "string",
+                                "description": "Chosen month for report", 
+                                "example": "11"
+                            }                            
+                        }                        
+                    ],                
 
                 "responses": {
                     "200": {
@@ -716,7 +743,31 @@
                             "description": "Chosen category for report", 
                             "example": "Products"
                         }                            
-                    }
+                    },
+
+                        {
+                            "name": "year",
+                            "in": "query",
+                            "required": false,
+                            "description": "Choose year for report",
+                            "schema": {
+                                "type": "string",
+                                "description": "Chosen year for report", 
+                                "example": "2023"
+                            }                            
+                        },
+
+                        {
+                            "name": "month",
+                            "in": "query",
+                            "required": false,
+                            "description": "Choose month for report",
+                            "schema": {
+                                "type": "string",
+                                "description": "Chosen month for report", 
+                                "example": "11"
+                            }                            
+                        }                    
                 ],                                
 
                 "responses": {
@@ -759,7 +810,7 @@
         "/transactions/income": {
             "get": {
                 "tags": ["Income"],
-                "summary": "All user's expenses transactions",
+                "summary": "All user's income transactions",
 
                 "security": [{ "Bearer": [] }],                
 
@@ -803,7 +854,7 @@
         "/transactions/income/month": {
             "get": {
                 "tags": ["Income"],
-                "summary": "All user's expenses transactions for the selected month",
+                "summary": "All user's income transactions for the selected month",
 
                 "security": [{ "Bearer": [] }],
                 
@@ -875,7 +926,7 @@
         "/transactions/income/summary": {
             "get": {
                 "tags": ["Income"],
-                "summary": "All user's expenses transactions are grouped into months (month/sum)",
+                "summary": "All user's income transactions are grouped into months (month/sum)",
 
                 "security": [{ "Bearer": [] }],                
 
@@ -919,9 +970,36 @@
         "/transactions/income/category": {
             "get": {
                 "tags": ["Income"],
-                "summary": "All user's expenses transactions are grouped into categories (category/sum)",
+                "summary": "All user's income transactions are grouped into categories (category/sum)",
 
-                "security": [{ "Bearer": [] }],                
+                "security": [{ "Bearer": [] }], 
+                
+                "parameters": 
+                    [
+                        {
+                            "name": "year",
+                            "in": "query",
+                            "required": false,
+                            "description": "Choose year for report",
+                            "schema": {
+                                "type": "string",
+                                "description": "Chosen year for report", 
+                                "example": "2023"
+                            }                            
+                        },
+
+                        {
+                            "name": "month",
+                            "in": "query",
+                            "required": false,
+                            "description": "Choose month for report",
+                            "schema": {
+                                "type": "string",
+                                "description": "Chosen month for report", 
+                                "example": "11"
+                            }                            
+                        }                        
+                    ],                
 
                 "responses": {
                     "200": {
@@ -963,13 +1041,12 @@
         "/transactions/income/description": {
             "get": {
                 "tags": ["Income"],
-                "summary": "All user's expenses transactions are grouped into description (description/sum)",
+                "summary": "All user's income transactions are grouped into description (description/sum)",
 
                 "security": [{ "Bearer": [] }], 
                 
                 "parameters": 
                     [
-                        
                         {
                             "name": "category",
                             "in": "query",
@@ -980,7 +1057,31 @@
                                 "description": "Chosen category for report", 
                                 "example": "Products"
                             }                            
-                        }
+                        },
+
+                        {
+                            "name": "year",
+                            "in": "query",
+                            "required": false,
+                            "description": "Choose year for report",
+                            "schema": {
+                                "type": "string",
+                                "description": "Chosen year for report", 
+                                "example": "2023"
+                            }                            
+                        },
+
+                        {
+                            "name": "month",
+                            "in": "query",
+                            "required": false,
+                            "description": "Choose month for report",
+                            "schema": {
+                                "type": "string",
+                                "description": "Chosen month for report", 
+                                "example": "11"
+                            }                            
+                        }                        
                     ],                
 
                 "responses": {
