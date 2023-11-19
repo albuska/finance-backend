@@ -1060,7 +1060,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                "$ref": "#/components/schemas/AllTypesOfTransactionsResponse"
+                                "$ref": "#/components/schemas/GetAllTransactionsByTypeResponse"
                                 }
                             }
                         }
@@ -1487,23 +1487,7 @@
                         }
                     }
                 }
-            },
-
-            "AllTypesOfTransactionsResponse": {
-                "type": "object",
-                "properties": {
-                    "transactions": {
-                        "type": "array",
-                        "description": "An array of transactions",
-                        "items": {
-                            "transaction": {
-                                "$ref": "#/components/schemas/Transaction",
-                                "description": "Transaction's details"
-                            }
-                        }
-                    }
-                }
-            },            
+            },           
             
             "AddTransactionRequest": {
                 "type": "object",
