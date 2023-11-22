@@ -21,6 +21,8 @@ app.use(logger(formatsLogger));
 app.use(cors({
   origin: ['http://localhost:3000', 'https://nmarkhotsky.github.io/finance-front'],
   credentials: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  optionsSuccessStatus: 204,
 }));
 
 app.use(express.json());
