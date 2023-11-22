@@ -19,7 +19,7 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(logger(formatsLogger));
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://finance-backend-eight.vercel.app/'],
+  origin: ['http://localhost:3000', 'https://nmarkhotsky.github.io/finance-front'],
   credentials: true,
 }));
 
