@@ -23,7 +23,7 @@ router.post("/auth/register", registerValidation, ctrlUsers.register)
 
 router.post("/auth/logout", authenticate, ctrlUsers.logout); 
 
-router.get("/auth/refresh", refreshValidation, ctrlUsers.refreshTokens); 
+router.post("/auth/refresh", refreshValidation, ctrlUsers.refreshTokens); 
 
 router.get("/current", authenticate, ctrlUsers.getCurrent); 
 
