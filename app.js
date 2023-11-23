@@ -19,9 +19,9 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(logger(formatsLogger));
 app.use(cors({
-  origin: '*',
+  origin: ['http://localhost:3000', 'https://nmarkhotsky.github.io/finance-front'],
   credentials: true,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
   exposedHeaders: ['Content-Range', 'X-Content-Range'],
 }));
