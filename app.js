@@ -19,12 +19,15 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(logger(formatsLogger));
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://nmarkhotsky.github.io/finance-front/'],
+  origin: '*',
   credentials: true,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
   exposedHeaders: ['Content-Range', 'X-Content-Range'],
 }));
+
+
+// ['http://localhost:3000', 'https://nmarkhotsky.github.io/finance-front/']
 
 app.use(express.json());
 
