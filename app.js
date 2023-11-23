@@ -28,8 +28,10 @@ app.use(logger(formatsLogger));
 //   exposedHeaders: ['Content-Range', 'X-Content-Range'],
 // }));
 
+app.options('*', cors());
+
 app.use(cors({
-  origin: [FRONT_PROD, 'http://localhost:3000'],
+  origin: ['https://nmarkhotsky.github.io/finance-front', 'http://localhost:3000'],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   exposedHeaders: ['Access-Control-Allow-Origin',
     'Access-Control-Allow-Headers',
