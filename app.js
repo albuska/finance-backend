@@ -14,13 +14,11 @@ const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
-const { FRONT_PROD, FRONT_DEV } = process.env;
-
 app.use(logger(formatsLogger));
 
 const allowedOrigins = [
-  FRONT_PROD,
-  FRONT_DEV,
+  'https://nmarkhotsky.github.io',
+  'http://localhost:3000',
 ];
 
 const corsOptions = {
