@@ -28,10 +28,42 @@ app.use(logger(formatsLogger));
 //   exposedHeaders: ['Content-Range', 'X-Content-Range'],
 // }));
 
-app.use(cors({
-  origin: ['https://nmarkhotsky.github.io/finance-front', 'http://localhost:3000'],
+// app.use(cors({
+//   origin: ['https://nmarkhotsky.github.io/finance-front', 'http://localhost:3000'],
+//   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+//   exposedHeaders: ['Access-Control-Allow-Origin',
+//     'Access-Control-Allow-Headers',
+//     'X-CSRF-Token',
+//     'X-Requested-With',
+//     'Accept',
+//     'Accept-Version',
+//     'Content-Length',
+//     'Content-MD5',
+//     'Content-Type',
+//     'Date',
+//     'X-Api-Version',
+//     'Authorization'],
+//   credentials: true,
+// }));
+
+// app.options('*', cors());
+
+const allowedOrigins = [
+  'https://nmarkhotsky.github.io',
+  'http://localhost:3000',
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  exposedHeaders: ['Access-Control-Allow-Origin',
+  allowedHeaders: [
+    'Access-Control-Allow-Origin',
     'Access-Control-Allow-Headers',
     'X-CSRF-Token',
     'X-Requested-With',
@@ -42,14 +74,27 @@ app.use(cors({
     'Content-Type',
     'Date',
     'X-Api-Version',
-    'Authorization'],
+    'Authorization'
+  ],
+  exposedHeaders: [
+    'Access-Control-Allow-Origin',
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token',
+    'X-Requested-With',
+    'Accept',
+    'Accept-Version',
+    'Content-Length',
+    'Content-MD5',
+    'Content-Type',
+    'Date',
+    'X-Api-Version',
+    'Authorization'
+  ],
   credentials: true,
-}));
+  optionsSuccessStatus: 204,
+};
 
-app.options('*', cors());
-
-
-// ['http://localhost:3000', 'https://nmarkhotsky.github.io/finance-front/']
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
