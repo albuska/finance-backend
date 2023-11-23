@@ -17,13 +17,33 @@ const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
+const { FRONT_PROD, FRONT_DEV } = process.env;
+
 app.use(logger(formatsLogger));
+// app.use(cors({
+//   origin: ['http://localhost:3000', 'https://nmarkhotsky.github.io/finance-front'],
+//   credentials: true,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+//   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
+//   exposedHeaders: ['Content-Range', 'X-Content-Range'],
+// }));
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://nmarkhotsky.github.io/finance-front'],
+  origin: [FRONT_PROD, 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  exposedHeaders: ['Access-Control-Allow-Origin',
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token',
+    'X-Requested-With',
+    'Accept',
+    'Accept-Version',
+    'Content-Length',
+    'Content-MD5',
+    'Content-Type',
+    'Date',
+    'X-Api-Version',
+    'Authorization'],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
-  exposedHeaders: ['Content-Range', 'X-Content-Range'],
 }));
 
 
