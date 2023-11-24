@@ -21,6 +21,36 @@ const allowedOrigins = [
   'http://localhost:3000',
 ];
 
+const allowedHeaders = [
+    'Access-Control-Allow-Origin',
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token',
+    'X-Requested-With',
+    'Accept',
+    'Accept-Version',
+    'Content-Length',
+    'Content-MD5',
+    'Content-Type',
+    'Date',
+    'X-Api-Version',
+    'Authorization'
+]
+  
+const exposedHeaders = [
+    'Access-Control-Allow-Origin',
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token',
+    'X-Requested-With',
+    'Accept',
+    'Accept-Version',
+    'Content-Length',
+    'Content-MD5',
+    'Content-Type',
+    'Date',
+    'X-Api-Version',
+    'Authorization'
+  ]
+
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
@@ -30,34 +60,8 @@ const corsOptions = {
     }
   },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  allowedHeaders: [
-    'Access-Control-Allow-Origin',
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token',
-    'X-Requested-With',
-    'Accept',
-    'Accept-Version',
-    'Content-Length',
-    'Content-MD5',
-    'Content-Type',
-    'Date',
-    'X-Api-Version',
-    'Authorization'
-  ],
-  exposedHeaders: [
-    'Access-Control-Allow-Origin',
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token',
-    'X-Requested-With',
-    'Accept',
-    'Accept-Version',
-    'Content-Length',
-    'Content-MD5',
-    'Content-Type',
-    'Date',
-    'X-Api-Version',
-    'Authorization'
-  ],
+  allowedHeaders: allowedHeaders,
+  exposedHeaders: exposedHeaders,
   credentials: true,
   optionsSuccessStatus: 204,
 };
@@ -68,15 +72,15 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-// app.use((req, res, next) => {
-//   // Дозволяємо доступ до куків з інших доменів
-//   res.header('Access-Control-Allow-Credentials', true);
+app.use((req, res, next) => {
+  // Дозволяємо доступ до куків з інших доменів
+  res.header('Access-Control-Allow-Credentials', true);
 
-//   // Дозволяємо доступ з усіх доменів (можна точніше налаштувати для конкретних)
-//   res.header('Access-Control-Allow-Origin', allowedOrigins);
+  // Дозволяємо доступ з усіх доменів (можна точніше налаштувати для конкретних)
+  res.header(allowedHeaders, allowedOrigins);
 
-//   next();
-// });
+  next();
+});
 
 app.use("/api", authRouter);
 app.use("/api/transactions", transactionsRouter);
