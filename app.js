@@ -68,6 +68,16 @@ app.use(express.json());
 
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  // Дозволяємо доступ до куків з інших доменів
+  res.header('Access-Control-Allow-Credentials', true);
+
+  // Дозволяємо доступ з усіх доменів (можна точніше налаштувати для конкретних)
+  res.header('Access-Control-Allow-Origin', '*');
+
+  next();
+});
+
 app.use("/api", authRouter);
 app.use("/api/transactions", transactionsRouter);
 app.use("/api/api-docs", swaggerRouter);
