@@ -68,15 +68,15 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use((req, res, next) => {
-  // Дозволяємо доступ до куків з інших доменів
-  res.set('Access-Control-Allow-Credentials', true);
+// app.use((req, res, next) => {
+//   // Дозволяємо доступ до куків з інших доменів
+//   res.set('Access-Control-Allow-Credentials', true);
 
-  // Дозволяємо доступ з усіх доменів (можна точніше налаштувати для конкретних)
-  res.set('Access-Control-Allow-Origin', allowedOrigins[0] || allowedOrigins[1]);
+//   // Дозволяємо доступ з усіх доменів (можна точніше налаштувати для конкретних)
+//   res.set('Access-Control-Allow-Origin', allowedOrigins[0] || allowedOrigins[1]);
 
-  next();
-});
+//   next();
+// });
 
 app.use(express.json());
 
