@@ -73,7 +73,7 @@ app.use((req, res, next) => {
   res.set('Access-Control-Allow-Credentials', true);
 
   // Дозволяємо доступ з усіх доменів (можна точніше налаштувати для конкретних)
-  res.set('Access-Control-Allow-Origin', allowedOrigins.join(', '));
+  res.set('Access-Control-Allow-Origin', allowedOrigins[0] || allowedOrigins[1]);
 
   next();
 });
