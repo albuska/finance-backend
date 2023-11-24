@@ -68,19 +68,19 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.use((req, res, next) => {
+  // Дозволяємо доступ до куків з інших доменів
+  res.set('Access-Control-Allow-Credentials', true);
+
+  // Дозволяємо доступ з усіх доменів (можна точніше налаштувати для конкретних)
+  res.set('Access-Control-Allow-Origin', 'https://nmarkhotsky.github.io');
+
+  next();
+});
+
 app.use(express.json());
 
 app.use(cookieParser());
-
-// app.use((req, res, next) => {
-//   // Дозволяємо доступ до куків з інших доменів
-//   res.header('Access-Control-Allow-Credentials', true);
-
-//   // Дозволяємо доступ з усіх доменів (можна точніше налаштувати для конкретних)
-//   res.header(allowedHeaders, allowedOrigins);
-
-//   next();
-// });
 
 app.use("/api", authRouter);
 app.use("/api/transactions", transactionsRouter);
