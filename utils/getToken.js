@@ -7,8 +7,8 @@ const getToken = async (id) => {
   const payload = {
     id,
   };
-  // const token = await jwt.sign(payload, SECRET_KEY_TOKEN, { expiresIn: `${TOKEN_EXPIRES_IN}` });
-  const token = await jwt.sign(payload, SECRET_KEY_TOKEN, { expiresIn: `1m` });
+  const token = await jwt.sign(payload, SECRET_KEY_TOKEN, { expiresIn: `${TOKEN_EXPIRES_IN}` });
+  // const token = await jwt.sign(payload, SECRET_KEY_TOKEN, { expiresIn: `1m` });
   const refreshToken = await jwt.sign(payload, SECRET_KEY_REFRESH_TOKEN, { expiresIn: `${TOKEN_REFRESH_EXPIRES_IN}` });
   return {
     token,
