@@ -3,6 +3,7 @@ const db = require("../../db");
 const { ctrlWrapper } = require("../../helpers");
 const { sendEmail } = require("../../services/auth");
 const { createHashPassword, getToken } = require("../../utils");
+const { REFRESH_TOKEN_COOKIE } = require('../../constants');
 
 
 const { BASE_URL, FRONT_DEV } = process.env;
@@ -39,7 +40,7 @@ const register = async (req, res) => {
 
   await sendEmail(verifyEmail);
   
-  res.cookie('refreshToken', refresh_token, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true });
+  res.cookie('refreshToken', refresh_token, REFRESH_TOKEN_COOKIE);
 
   res.status(201).json({
     user: {

@@ -24,8 +24,16 @@ const typeOfTransactionEnum = {
     EXPENSES: 'expense'
 }
 
+const REFRESH_TOKEN_COOKIE = {
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none'
+}
+
 module.exports = {
     categoryOfExpensesEnum,
     categoryOfIncomeEnum,
-    typeOfTransactionEnum
+    typeOfTransactionEnum,
+    REFRESH_TOKEN_COOKIE
 }
