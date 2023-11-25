@@ -22,8 +22,8 @@ const allowedOrigins = [
 ];
 
 const allowedHeaders = [
-    // 'Access-Control-Allow-Origin',
-    // 'Access-Control-Allow-Headers',
+    'Access-Control-Allow-Origin',
+    'Access-Control-Allow-Headers',
     'X-CSRF-Token',
     'X-Requested-With',
     'Accept',
@@ -37,18 +37,18 @@ const allowedHeaders = [
 ]
   
 const exposedHeaders = [
-    // 'Access-Control-Allow-Origin',
-    // 'Access-Control-Allow-Headers',
-    // 'X-CSRF-Token',
-    // 'X-Requested-With',
-    // 'Accept',
-    // 'Accept-Version',
-    // 'Content-Length',
-    // 'Content-MD5',
-    // 'Content-Type',
-    // 'Date',
-    // 'X-Api-Version',
-    // 'Authorization',
+    'Access-Control-Allow-Origin',
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token',
+    'X-Requested-With',
+    'Accept',
+    'Accept-Version',
+    'Content-Length',
+    'Content-MD5',
+    'Content-Type',
+    'Date',
+    'X-Api-Version',
+    'Authorization',
     'Content-Range',
     'X-Content-Range'
   ]
