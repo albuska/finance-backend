@@ -48,7 +48,9 @@ const exposedHeaders = [
     'Content-Type',
     'Date',
     'X-Api-Version',
-    'Authorization'
+    'Authorization',
+    'Content-Range',
+    'X-Content-Range'
   ]
 
 const corsOptions = {
