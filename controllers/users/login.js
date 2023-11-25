@@ -18,8 +18,7 @@ const login = async (req, res) => {
 
   const { name, email: dbEmail, token: dbToken, refresh_token, balance } = updUser[0];
   
-  res.cookie('refreshToken',
-    refresh_token, REFRESH_TOKEN_COOKIE);
+  res.cookie('refreshToken', refresh_token, REFRESH_TOKEN_COOKIE);
 
   res.status(200).json({
     user: {
