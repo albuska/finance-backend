@@ -19,7 +19,13 @@ const refreshTokens = async (req, res, next) => {
 
     console.log(refresh_token);
     
-    res.cookie('refreshToken', refresh_token, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, secure: true, sameSite: 'None' });
+    res.cookie('refreshToken',
+        refresh_token, {
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none'
+    });
 
     res.status(200).json({token})
 }
