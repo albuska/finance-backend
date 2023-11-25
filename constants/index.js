@@ -1,9 +1,10 @@
 const regex = require("./regex");
-const { categoryOfExpensesEnum, categoryOfIncomeEnum, typeOfTransactionEnum } = require("./enums");
+const { categoryOfExpensesEnum, categoryOfIncomeEnum, typeOfTransactionEnum, REFRESH_TOKEN_COOKIE } = require("./enums");
 
 module.exports = {
     regex,
     categoryOfExpensesEnum,
     categoryOfIncomeEnum,
-    typeOfTransactionEnum
+    typeOfTransactionEnum,
+    REFRESH_TOKEN_COOKIE
 }

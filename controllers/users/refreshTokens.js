@@ -1,6 +1,7 @@
 const { ctrlWrapper } = require("../../helpers");
 const db = require("../../db");
 const { getToken } = require("../../utils");
+const { REFRESH_TOKEN_COOKIE } = require('../../constants');
 
 const refreshTokens = async (req, res, next) => {
     const { id } = req.user;
@@ -19,13 +20,7 @@ const refreshTokens = async (req, res, next) => {
 
     console.log(refresh_token);
     
-    res.cookie('refreshToken',
-        refresh_token, {
-            maxAge: 30 * 24 * 60 * 60 * 1000,
-            httpOnly: true,
-            secure: true,
-            sameSite: 'none'
-    });
+    res.cookie('refreshToken', refresh_token, REFRESH_TOKEN_COOKIE);
 
     res.status(200).json({token})
 }
