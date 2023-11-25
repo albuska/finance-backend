@@ -12,6 +12,12 @@ const logout = async (req, res) => {
     [id]
   );
 
+  res.clearCookie('refreshToken', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none'
+  });
+
   res.status(204).json({ rows });
 };
 
