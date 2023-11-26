@@ -20,7 +20,7 @@ const login = async (req, res) => {
   
   res.cookie('refreshToken', refresh_token, REFRESH_TOKEN_COOKIE);
   // res.cookie('refreshToken', { ...REFRESH_TOKEN_COOKIE, sameSite: 'None' })
-  response.setHeader("Set-Cookie", `refreshToken=${refresh_token};HttpOnly;Secure;SameSite=None`);
+  res.setHeader("Set-Cookie", `refreshToken=${refresh_token};HttpOnly;Secure;SameSite=None`);
 
   res.status(200).json({
     user: {
