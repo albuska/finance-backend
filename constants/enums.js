@@ -28,7 +28,7 @@ const REFRESH_TOKEN_COOKIE = {
     maxAge: 30 * 24 * 60 * 60 * 1000,
     httpOnly: true,
     secure: true,
-    SameSite: 'Lax'
+    sameSite: 'None'
 }
 
 module.exports = {
