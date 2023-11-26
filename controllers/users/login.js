@@ -19,7 +19,8 @@ const login = async (req, res) => {
   const { name, email: dbEmail, token: dbToken, refresh_token, balance } = updUser[0];
   
   res.cookie('refreshToken', refresh_token, REFRESH_TOKEN_COOKIE);
-  res.cookie('refreshToken', {...REFRESH_TOKEN_COOKIE, sameSite: 'None'})
+  // res.cookie('refreshToken', { ...REFRESH_TOKEN_COOKIE, sameSite: 'None' })
+  response.setHeader("Set-Cookie", `refreshToken=${refresh_token};HttpOnly;Secure;SameSite=None`);
 
   res.status(200).json({
     user: {
